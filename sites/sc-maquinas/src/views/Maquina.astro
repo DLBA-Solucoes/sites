@@ -1,0 +1,447 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import BlocoContato from '../components/BlocoContato.astro';
+import Icone from '../components/Icone.astro';
+import { ENGATE, NOME_FAMILIA, secao, slugify, t, type Lang } from '../lib/i18n';
+import { NUMERO, img, nomeMaquina, palco, porFamilia, slotsDaFamilia, slugMaquina, valorSpec, type Maquina } from '../lib/dados';
+import { urlCultura } from '../lib/rotas';
+import { CONTATO } from '../data/empresa';
+
+interface Props {
+  lang: Lang;
+  maquina: Maquina;
+  alternativas: Partial<Record<Lang, string>>;
+}
+const { lang, maquina: m, alternativas } = Astro.props;
+const ui = t(lang);
+const i18n = m.i18n[lang];
+const nome = nomeMaquina(m, lang);
+const familia = porFamilia(m.familia);
+const slots = slotsDaFamilia(m.familia, lang);
+const imgPalco = palco(m);
+const galeria = [m.imagens.destaque, ...m.imagens.galeria].filter((g) => g.arquivo !== imgPalco.arquivo);
+const assunto = ui.orcamentoAssunto(`${m.codigo} · ${nome} ${i18n.modelo}`);
+const email = lang === 'pt' ? CONTATO.emails.vendas : CONTATO.emails.exportacao;
+const tel = CONTATO.telefones.find((x) => x.principal)!;
+const titulo = `${m.codigo} · ${nome} ${i18n.modelo}`;
+const descricao = i18n.intro || `${nome} ${i18n.modelo}. ${ui.ficha}.`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: `${nome} ${m.codigo}`,
+  model: m.codigo,
+  description: descricao,
+  brand: { '@type': 'Brand', name: 'SC Máquinas' },
+  manufacturer: { '@type': 'Organization', name: 'SC Máquinas e Implementos Agrícolas' },
+  additionalProperty: i18n.specs.map(([k, v]) => ({ '@type': 'PropertyValue', name: k, value: v })),
+};
+---
+
+<Base lang={lang} titulo={titulo} descricao={descricao} alternativas={alternativas} ogImagem={img(imgPalco.arquivo)} secaoAtiva="maquinas">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
+
+  <nav class="wrap migalhas rotulo num pt-6 text-nevoa" aria-label="Breadcrumb">
+    <ol class="flex flex-wrap gap-x-2">
+      <li><a href={secao(lang, 'maquinas')}>{ui.catalogo}</a> /</li>
+      <li><a href={`${secao(lang, 'maquinas')}#fam-${m.familia}`}>{NOME_FAMILIA[m.familia][lang]}</a> /</li>
+      <li aria-current="page" class="text-papel">Nº {NUMERO.get(m.chave)} · {m.codigo}</li>
+    </ol>
+  </nav>
+
+  <section class="palco" aria-labelledby="maq-titulo">
+    <div class="wrap grade">
+      <p class="codigo-fantasma num entra-codigo" aria-hidden="true">{m.codigo}</p>
+      <div class="texto">
+        <h1 id="maq-titulo" class="entra" style="--i:1">
+          <span class="display block text-[clamp(3.5rem,2rem+6vw,6rem)] num">{m.codigo}</span>
+          <span class="titulo mt-3 block text-[clamp(1.5rem,1.1rem+1.6vw,2.25rem)]">{nome}</span>
+          <span class="mt-1 block text-lg text-nevoa">{i18n.modelo}</span>
+        </h1>
+        {i18n.intro && <p class="lead entra mt-6" style="--i:2">{i18n.intro}</p>}
+        <div class="entra mt-8 flex flex-wrap gap-3" style="--i:3">
+          {
+            CONTATO.whatsapp ? (
+              <a href={`https://wa.me/${CONTATO.whatsapp}?text=${encodeURIComponent(assunto)}`} class="btn btn-sinal">
+                <Icone nome="whatsapp" />
+                {ui.pedirOrcamento}
+              </a>
+            ) : (
+              <a href={`mailto:${email}?subject=${encodeURIComponent(assunto)}`} class="btn btn-sinal">
+                <Icone nome="email" />
+                {ui.pedirOrcamento}
+              </a>
+            )
+          }
+          <a href={`tel:${tel.link}`} class="btn btn-linha num"><Icone nome="telefone" />{tel.numero}</a>
+        </div>
+      </div>
+      <div class="foto">
+        <Image
+          src={img(imgPalco.arquivo)}
+          alt={`${nome} ${m.codigo}`}
+          widths={[640, 960, 1400]}
+          sizes="(min-width: 1024px) 55vw, 100vw"
+          loading="eager"
+          fetchpriority="high"
+          class="entra-maquina"
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap grid gap-12 py-[clamp(3.5rem,7vw,6rem)] lg:grid-cols-12" aria-label={ui.ficha}>
+    <div class="lg:col-span-5">
+      {
+        i18n.itens.length > 0 && (
+          <ul class="itens">
+            {i18n.itens.map((it) => (
+              <li>{it.replace(/;$/, '.')}</li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        m.imagens.detalhe && (
+          <figure class="detalhe mt-10">
+            <Image src={img(m.imagens.detalhe.arquivo)} alt="" widths={[480, 800]} sizes="(min-width: 1024px) 34vw, 100vw" loading="lazy" />
+          </figure>
+        )
+      }
+      {
+        i18n.culturas.length > 0 && (
+          <div class="mt-10">
+            <h2 class="rotulo text-nevoa">{ui.culturasIndicadas}</h2>
+            <ul class="culturas mt-3">
+              {i18n.culturas.map((c) => (
+                <li>
+                  <a href={urlCultura(lang, c.nome)}>{c.nome}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="papel ficha lg:col-span-7">
+      <div class="ficha-cab">
+        <h2 class="titulo text-[clamp(1.75rem,1.3rem+1.6vw,2.5rem)]">{ui.ficha}</h2>
+        <p class="rotulo num text-tinta-2">{m.codigo} · Nº {NUMERO.get(m.chave)}</p>
+      </div>
+      <table class="tabela num">
+        <thead class="sr-only">
+          <tr><th scope="col">{ui.caracteristica}</th><th scope="col">{ui.especificacao}</th></tr>
+        </thead>
+        <tbody>
+          {
+            slots.map((s) => {
+              const v = valorSpec(m, lang, s.chave);
+              return (
+                <tr class:list={[!v && 'vazio']}>
+                  <th scope="row">{s.rotulo}</th>
+                  <td>{v ?? <span aria-label="n/a">—</span>}</td>
+                </tr>
+              );
+            })
+          }
+        </tbody>
+      </table>
+      {
+        i18n.pdf && (
+          <a href={i18n.pdf} class="btn btn-linha mt-8 text-tinta" target="_blank" rel="noopener">
+            <Icone nome="download" />
+            {ui.catalogoPdf}
+          </a>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    galeria.length > 0 && (
+      <section class="border-t regra py-[clamp(3rem,6vw,5rem)]" aria-labelledby="galeria-titulo">
+        <h2 id="galeria-titulo" class="wrap titulo mb-8 text-[clamp(1.75rem,1.3rem+1.6vw,2.5rem)]">{ui.galeria}</h2>
+        <div class="galeria" tabindex="0" role="region" aria-labelledby="galeria-titulo">
+          <ul>
+            {galeria.map((g) => (
+              <li class:list={[g.fundo === 'transparente' ? 'recorte' : g.fundo === 'branco' ? 'branco' : 'foto']}>
+                <Image src={img(g.arquivo)} alt={`${nome} ${m.codigo}`} widths={[480, 900]} sizes="(min-width: 900px) 34vw, 80vw" loading="lazy" />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    familia.length > 1 && (
+      <section class="border-t regra py-[clamp(3.5rem,7vw,6rem)]" aria-labelledby="comparar-titulo">
+        <div class="wrap">
+          <h2 id="comparar-titulo" class="display text-[clamp(2.25rem,1.4rem+3.5vw,4.5rem)]">{ui.comparar}</h2>
+          <p class="lead mt-4 text-nevoa">{ui.compararLead}</p>
+        </div>
+        <div class="wrap mt-10">
+          <div class="comparar papel" tabindex="0" role="region" aria-labelledby="comparar-titulo">
+            <table class="num">
+              <thead>
+                <tr>
+                  <td />
+                  {familia.map((f) => (
+                    <th scope="col" class:list={[f === m && 'atual']}>
+                      <a href={secao(lang, 'maquinas', slugMaquina(f))}>
+                        <span class="titulo block text-2xl">{f.codigo}</span>
+                        <span class="block text-sm font-normal text-tinta-2">{f.i18n[lang].modelo}</span>
+                      </a>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {slots.map((s) => (
+                  <tr>
+                    <th scope="row">{s.rotulo}</th>
+                    {familia.map((f) => {
+                      const v = valorSpec(f, lang, s.chave);
+                      return <td class:list={[f === m && 'atual', !v && 'vazio']}>{v ?? '—'}</td>;
+                    })}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <div class="border-t regra">
+    <BlocoContato lang={lang} assunto={assunto} />
+  </div>
+</Base>
+
+<style>
+  .migalhas a {
+    text-decoration: none;
+  }
+  .migalhas a:hover {
+    color: var(--color-papel);
+  }
+  .palco {
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse 55% 60% at 70% 50%, #22262b 0%, transparent 70%);
+  }
+  .grade {
+    position: relative;
+    display: grid;
+    gap: 1.5rem;
+    padding-block: clamp(1.5rem, 4vw, 3rem);
+  }
+  .codigo-fantasma {
+    position: absolute;
+    right: 0;
+    bottom: -0.12em;
+    font-stretch: 62%;
+    font-weight: 900;
+    font-size: clamp(6rem, 22vw, 20rem);
+    line-height: 0.8;
+    color: #262b31;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+  .texto {
+    position: relative;
+    z-index: 2;
+  }
+  .foto {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+  }
+  .foto :global(img) {
+    width: 100%;
+    max-height: 72vh;
+    object-fit: contain;
+    filter: drop-shadow(0 36px 36px rgb(0 0 0 / 0.55));
+  }
+  @media (min-width: 1024px) {
+    .grade {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: center;
+      min-height: min(70vh, 680px);
+    }
+  }
+  .itens {
+    display: grid;
+    gap: 1rem;
+    counter-reset: item;
+  }
+  .itens li {
+    position: relative;
+    padding-left: 2.75rem;
+    counter-increment: item;
+    max-width: 60ch;
+  }
+  .itens li::before {
+    content: counter(item);
+    position: absolute;
+    left: 0;
+    top: -0.1rem;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-sinal);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.8125rem;
+  }
+  .detalhe {
+    margin: 0;
+    background: var(--color-palco-2);
+  }
+  .detalhe :global(img) {
+    width: 100%;
+  }
+  .culturas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .culturas a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 0.85rem;
+    border: 1px solid var(--color-aco-2);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+  .culturas a:hover {
+    border-color: var(--color-papel);
+  }
+  .ficha {
+    padding: clamp(1.25rem, 3vw, 2.5rem);
+    align-self: start;
+  }
+  .ficha-cab {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid var(--color-marinho);
+  }
+  .ficha-cab .titulo {
+    color: var(--color-marinho);
+  }
+  .tabela {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .tabela th,
+  .tabela td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--color-papel-2);
+  }
+  .tabela th {
+    width: 42%;
+    padding-right: 1rem;
+    font-weight: 500;
+    color: var(--color-tinta-2);
+  }
+  .tabela td {
+    font-weight: 700;
+  }
+  .vazio td,
+  td.vazio {
+    color: #b8bab5;
+    font-weight: 400;
+  }
+  .galeria {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+  }
+  .galeria ul {
+    display: flex;
+    gap: 6px;
+    padding-inline: var(--gutter);
+    width: max-content;
+  }
+  .galeria li {
+    scroll-snap-align: start;
+    scroll-margin-inline: var(--gutter);
+    width: min(80vw, 34rem);
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--color-palco-2);
+  }
+  .galeria li.branco {
+    background: #fff;
+  }
+  .galeria li :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .galeria li.foto :global(img) {
+    object-fit: cover;
+  }
+  .galeria li.recorte :global(img) {
+    padding: 6%;
+  }
+  .comparar {
+    overflow-x: auto;
+  }
+  .comparar table {
+    border-collapse: collapse;
+    min-width: 100%;
+  }
+  .comparar th,
+  .comparar td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-papel-2);
+    min-width: 9.5rem;
+    font-size: 0.9375rem;
+  }
+  .comparar tbody th {
+    position: sticky;
+    left: 0;
+    background: var(--color-papel);
+    font-weight: 500;
+    color: var(--color-tinta-2);
+    min-width: 11rem;
+    box-shadow: 1px 0 0 var(--color-papel-2);
+  }
+  .comparar thead th {
+    border-bottom: 3px solid var(--color-marinho);
+    padding-top: 1.25rem;
+  }
+  .comparar thead a {
+    text-decoration: none;
+  }
+  .comparar thead a:hover .titulo {
+    color: var(--color-sinal);
+  }
+  .comparar td {
+    font-weight: 650;
+  }
+  .comparar .atual {
+    background: #e9ece9;
+  }
+  .comparar thead th.atual {
+    box-shadow: inset 0 4px 0 var(--color-sinal);
+  }
+</style>

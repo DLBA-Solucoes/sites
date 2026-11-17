@@ -1,0 +1,23 @@
+{
+  "name": "sc-maquinas",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "conteudo": "node scripts/importar-conteudo.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.2",
+    "@cdl/base": "*",
+    "@fontsource-variable/archivo": "5.3.0",
+    "@tailwindcss/vite": "4.3.3",
+    "astro": "7.4.4",
+    "sharp": "0.35.5",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "cheerio": "^1.0.0"
+  }
+}

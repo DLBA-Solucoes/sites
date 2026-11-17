@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import IndiceCatalogo from '../components/IndiceCatalogo.astro';
+import { t } from '../lib/i18n';
+const ui = t('pt');
+---
+
+<Base lang="pt" titulo={ui.nao404} descricao={ui.nao404Lead} alternativas={{}}>
+  <header class="wrap pt-[clamp(3rem,7vw,6rem)] pb-12">
+    <p class="display num text-[clamp(6rem,4rem+10vw,12rem)] text-aco-2" aria-hidden="true">404</p>
+    <h1 class="titulo mt-4 text-[clamp(2rem,1.4rem+2.5vw,3.5rem)]">{ui.nao404}</h1>
+    <p class="lead mt-4 text-nevoa">{ui.nao404Lead}</p>
+  </header>
+  <section class="wrap pb-24"><IndiceCatalogo lang="pt" /></section>
+</Base>

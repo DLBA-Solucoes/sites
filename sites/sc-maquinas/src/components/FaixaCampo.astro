@@ -1,0 +1,82 @@
+---
+// Fotos de campo como quadros numerados, com código de borda real (cultura · linha).
+import { Image } from 'astro:assets';
+import { NOME_FAMILIA, t, type Lang } from '../lib/i18n';
+import { CAMPO, img, type FotoCampo } from '../lib/dados';
+
+interface Props {
+  lang: Lang;
+  fotos?: FotoCampo[];
+}
+const { lang, fotos = CAMPO.filter((c) => c.cultura) } = Astro.props;
+const alt = (c: FotoCampo) =>
+  [NOME_FAMILIA[c.familia][lang], c.cultura?.[lang]].filter(Boolean).join(lang === 'en' ? ' in ' : ' em ');
+---
+
+<div class="faixa" tabindex="0" role="region" aria-label={t(lang).campoTitulo}>
+  <ol class="quadros">
+    {
+      fotos.map((c, i) => (
+        <li class="quadro">
+          <figure>
+            <Image src={img(c.arquivo)} alt={alt(c)} widths={[480, 800, 1200]} sizes="(min-width: 900px) 46vw, 86vw" loading="lazy" />
+            <figcaption class="borda rotulo num">
+              <span>{String(i + 1).padStart(2, '0')}</span>
+              <span>
+                {c.cultura?.[lang]} · {NOME_FAMILIA[c.familia][lang]}
+              </span>
+            </figcaption>
+          </figure>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .faixa {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: thin;
+    padding-bottom: 1rem;
+  }
+  .faixa:focus-visible {
+    outline-offset: -3px;
+  }
+  .quadros {
+    display: flex;
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+    padding-inline: var(--gutter);
+    width: max-content;
+  }
+  .quadro {
+    scroll-snap-align: start;
+    scroll-margin-inline: var(--gutter);
+    width: min(86vw, 46rem);
+  }
+  @media (min-width: 900px) {
+    .quadro {
+      width: 46vw;
+    }
+  }
+  figure {
+    margin: 0;
+  }
+  figure :global(img) {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+  .borda {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.6rem;
+    color: var(--color-nevoa);
+  }
+  .borda span:first-child {
+    color: var(--color-sinal-vivo);
+  }
+</style>

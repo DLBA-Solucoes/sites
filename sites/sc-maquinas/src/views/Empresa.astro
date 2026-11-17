@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import BlocoContato from '../components/BlocoContato.astro';
+import FaixaCampo from '../components/FaixaCampo.astro';
+import { t, type Lang } from '../lib/i18n';
+import { CAMPO, foto, img } from '../lib/dados';
+import { EMPRESA } from '../data/empresa';
+
+interface Props {
+  lang: Lang;
+  alternativas: Partial<Record<Lang, string>>;
+}
+const { lang, alternativas } = Astro.props;
+const ui = t(lang);
+const e = EMPRESA[lang];
+const capa = foto('canhao-trator');
+const rotulos = {
+  pt: { missao: 'Missão', visao: 'Visão', valores: 'Valores', jornada: 'Uma jornada de evolução' },
+  en: { missao: 'Mission', visao: 'Vision', valores: 'Values', jornada: 'A journey of evolution' },
+  es: { missao: 'Misión', visao: 'Visión', valores: 'Valores', jornada: 'Un camino de evolución' },
+}[lang];
+---
+
+<Base lang={lang} titulo={ui.empresaTitulo} descricao={e.lead} alternativas={alternativas} secaoAtiva="empresa" ogImagem={img(capa.arquivo)}>
+  <section class="abertura">
+    <Image src={img(capa.arquivo)} alt="" widths={[800, 1400, 1920]} sizes="100vw" loading="eager" fetchpriority="high" class="abertura-img" />
+    <div class="wrap abertura-texto">
+      <h1 class="display entra max-w-[14ch] text-[clamp(3rem,1.6rem+6vw,6rem)]" style="--i:1">{e.titulo}</h1>
+    </div>
+  </section>
+
+  <section class="wrap grid gap-10 py-[clamp(3.5rem,7vw,6rem)] lg:grid-cols-12">
+    <p class="lead lg:col-span-5">{e.lead}</p>
+    <div class="prosa text-nevoa lg:col-span-6 lg:col-start-7">
+      {e.historia.map((p) => <p>{p}</p>)}
+    </div>
+  </section>
+
+  <section class="wrap pb-[clamp(3.5rem,7vw,6rem)]" aria-labelledby="jornada">
+    <h2 id="jornada" class="display text-[clamp(2.25rem,1.4rem+3.5vw,4.5rem)]">{rotulos.jornada}</h2>
+    <ol class="trilha num mt-10">
+      {
+        e.marcos.map((m) => (
+          <li>
+            <span class="ano display">{m.ano}</span>
+            <span class="rotulo text-nevoa">{m.titulo}</span>
+            <span class="font-semibold">{m.texto}</span>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="papel py-[clamp(3.5rem,7vw,6rem)]">
+    <div class="wrap grid gap-12 lg:grid-cols-12">
+      <div class="mv lg:col-span-4">
+        <h2 class="titulo text-4xl text-marinho">{rotulos.missao}</h2>
+        <p class="mt-2 text-xl font-semibold">{e.missao}</p>
+        <h2 class="titulo mt-10 text-4xl text-marinho">{rotulos.visao}</h2>
+        <p class="mt-2 text-xl font-semibold">{e.visao}</p>
+      </div>
+      <div class="lg:col-span-7 lg:col-start-6">
+        <h2 class="titulo text-4xl text-marinho">{rotulos.valores}</h2>
+        <dl class="valores mt-3">
+          {
+            e.valores.map((v) => (
+              <div>
+                <dt class="font-extrabold">{v.nome}</dt>
+                <dd class="text-tinta-2">{v.texto}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-[clamp(3rem,6vw,5rem)]" aria-labelledby="campo-titulo">
+    <h2 id="campo-titulo" class="wrap display mb-8 text-[clamp(2.25rem,1.4rem+3.5vw,4.5rem)]">{ui.campoTitulo}</h2>
+    <FaixaCampo lang={lang} fotos={CAMPO.filter((c) => c.cultura)} />
+  </section>
+
+  <div class="border-t regra"><BlocoContato lang={lang} /></div>
+</Base>
+
+<style>
+  .abertura {
+    position: relative;
+    display: grid;
+    min-height: min(78vh, 760px);
+  }
+  .abertura > :global(*) {
+    grid-area: 1 / 1;
+  }
+  .abertura :global(.abertura-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 70% 50%;
+  }
+  .abertura::after {
+    content: '';
+    grid-area: 1 / 1;
+    background: linear-gradient(90deg, rgb(17 19 21 / 0.92) 0%, rgb(17 19 21 / 0.55) 45%, transparent 75%),
+      linear-gradient(0deg, rgb(17 19 21 / 0.85) 0%, transparent 40%);
+  }
+  .abertura-texto {
+    position: relative;
+    z-index: 1;
+    align-self: end;
+    padding-bottom: clamp(2.5rem, 6vw, 5rem);
+  }
+  .trilha {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10.5rem, 1fr));
+    border-top: 2px solid var(--color-sinal-vivo);
+    position: relative;
+  }
+  .trilha li {
+    position: relative;
+    display: grid;
+    align-content: start;
+    gap: 0.35rem;
+    padding: 1.5rem 1.25rem 1.5rem 0;
+  }
+  .trilha li::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background: var(--color-sinal-vivo);
+  }
+  .ano {
+    font-size: 2.75rem;
+  }
+  .valores > div {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--color-papel-2);
+  }
+  .valores > div:first-child {
+    border-top: 2px solid var(--color-tinta);
+  }
+  @media (max-width: 520px) {
+    .valores > div {
+      grid-template-columns: 1fr;
+      gap: 0.2rem;
+    }
+  }
+</style>

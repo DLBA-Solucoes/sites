@@ -1,0 +1,32 @@
+---
+// Uma rota para o site inteiro: a tabela em lib/rotas.ts gera todas as páginas nos 3 idiomas.
+import type { GetStaticPaths } from 'astro';
+import { todasAsRotas, type Rota } from '../lib/rotas';
+import { PREFIXO } from '../lib/i18n';
+import Home from '../views/Home.astro';
+import Maquinas from '../views/Maquinas.astro';
+import Maquina from '../views/Maquina.astro';
+import Culturas from '../views/Culturas.astro';
+import Empresa from '../views/Empresa.astro';
+import Contato from '../views/Contato.astro';
+import Blog from '../views/Blog.astro';
+import Post from '../views/Post.astro';
+
+export const getStaticPaths = (() =>
+  todasAsRotas().map((r) => ({
+    params: { rota: r.caminho.slice(PREFIXO.length).replace(/^\/|\/$/g, '') || undefined },
+    props: r,
+  }))) satisfies GetStaticPaths;
+
+const { lang, alternativas, pagina } = Astro.props as Rota;
+---
+
+{pagina.tipo === 'home' && <Home lang={lang} alternativas={alternativas} />}
+{pagina.tipo === 'maquinas' && <Maquinas lang={lang} alternativas={alternativas} />}
+{pagina.tipo === 'maquina' && <Maquina lang={lang} maquina={pagina.maquina} alternativas={alternativas} />}
+{pagina.tipo === 'culturas' && <Culturas lang={lang} alternativas={alternativas} />}
+{pagina.tipo === 'cultura' && <Maquinas lang={lang} alternativas={alternativas} cultura={pagina.cultura} />}
+{pagina.tipo === 'empresa' && <Empresa lang={lang} alternativas={alternativas} />}
+{pagina.tipo === 'contato' && <Contato lang={lang} alternativas={alternativas} />}
+{pagina.tipo === 'blog' && <Blog lang={lang} alternativas={alternativas} />}
+{pagina.tipo === 'post' && <Post post={pagina.post} alternativas={alternativas} />}

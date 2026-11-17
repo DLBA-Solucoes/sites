@@ -1,0 +1,1055 @@
+{
+  "linhas": [
+    {
+      "id": 307,
+      "name": "3 Points",
+      "slug": "cannons-3-points",
+      "parent": 305,
+      "link": "https://scmaquinas.com/en/linhas/cannons-3-points/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 295,
+      "name": "3 Poitns",
+      "slug": "atomizer-3-points",
+      "parent": 291,
+      "link": "https://scmaquinas.com/en/linhas/atomizer-3-points/",
+      "description": "",
+      "count": 2
+    },
+    {
+      "id": 32,
+      "name": "3 Pontos",
+      "slug": "atomizador-acoplado",
+      "parent": 6,
+      "link": "https://scmaquinas.com/linhas/atomizador-acoplado/",
+      "description": "",
+      "count": 2
+    },
+    {
+      "id": 39,
+      "name": "3 Pontos",
+      "slug": "canhao-acoplado",
+      "parent": 10,
+      "link": "https://scmaquinas.com/linhas/canhao-acoplado/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 297,
+      "name": "3 Puntos",
+      "slug": "atomizadores-3-puntos",
+      "parent": 293,
+      "link": "https://scmaquinas.com/es/linhas/atomizadores-3-puntos/",
+      "description": "",
+      "count": 2
+    },
+    {
+      "id": 309,
+      "name": "3 Puntos",
+      "slug": "canones-3-puntos",
+      "parent": 303,
+      "link": "https://scmaquinas.com/es/linhas/canones-3-puntos/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 321,
+      "name": "Abonadoras",
+      "slug": "abonadoras",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/linhas/abonadoras/",
+      "description": "Los distribuidores son equipos diseñados para distribuir fertilizantes, compuestos y abonos al voleo, con o sin dirección. Son muy eficaces en la distribución de semillas y granulados, por ejemplo, en cultivos de frutas y granos.",
+      "count": 3
+    },
+    {
+      "id": 40,
+      "name": "Arrasto",
+      "slug": "canhao-arrasto",
+      "parent": 10,
+      "link": "https://scmaquinas.com/linhas/canhao-arrasto/",
+      "description": "",
+      "count": 1
+    },
+    {
+      "id": 33,
+      "name": "Arrasto",
+      "slug": "atomizador-arrasto",
+      "parent": 6,
+      "link": "https://scmaquinas.com/linhas/atomizador-arrasto/",
+      "description": "",
+      "count": 3
+    },
+    {
+      "id": 301,
+      "name": "Arrastrado",
+      "slug": "atomizador-arrastrado",
+      "parent": 293,
+      "link": "https://scmaquinas.com/es/linhas/atomizador-arrastrado/",
+      "description": "",
+      "count": 3
+    },
+    {
+      "id": 313,
+      "name": "Arrastrado",
+      "slug": "canones-arrastrado",
+      "parent": 303,
+      "link": "https://scmaquinas.com/es/linhas/canones-arrastrado/",
+      "description": "",
+      "count": 1
+    },
+    {
+      "id": 293,
+      "name": "Atomizadores",
+      "slug": "atomizadores-es",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/linhas/atomizadores-es/",
+      "description": "Un atomizador es un equipo diseñado para producir gotas extremadamente finas de líquido, creando una niebla o vapor que se dispersa sobre las plantas. El atomizador es especialmente eficaz para la aplicación de productos en cultivos de porte menor, como frutas, hortalizas y viñedos. Su capacidad para producir gotas finas permite una cobertura más uniforme de las hojas y una mejor absorción de los productos aplicados.",
+      "count": 5
+    },
+    {
+      "id": 6,
+      "name": "Atomizadores",
+      "slug": "atomizador",
+      "parent": 0,
+      "link": "https://scmaquinas.com/linhas/atomizador/",
+      "description": "Atomizador é um equipamento projetado para produzir gotículas extremamente finas de líquido, criando uma névoa ou vapor que é disperso sobre as plantas. O atomizador é especialmente eficaz na aplicação de produtos em culturas de porte menor, como frutas, hortaliças e vinhedos. Sua capacidade de produzir gotículas finas permite uma cobertura mais uniforme das folhas e uma melhor absorção dos produtos aplicados.",
+      "count": 5
+    },
+    {
+      "id": 291,
+      "name": "Atomizers",
+      "slug": "atomizers",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/linhas/atomizers/",
+      "description": "A sprayer is a device designed to produce extremely fine droplets of liquid, creating a mist or vapor that is dispersed over plants. The sprayer is especially effective for applying products to smaller crops, such as fruits, vegetables, and vineyards. Its ability to produce fine droplets allows for more uniform coverage of the leaves and better absorption of the applied products.",
+      "count": 5
+    },
+    {
+      "id": 443,
+      "name": "Boom Sprayer",
+      "slug": "boom-sprayer",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/linhas/boom-sprayer/",
+      "description": "",
+      "count": 2
+    },
+    {
+      "id": 10,
+      "name": "Canhões",
+      "slug": "canhoes",
+      "parent": 0,
+      "link": "https://scmaquinas.com/linhas/canhoes/",
+      "description": "Um canhão pulverizador é um dispositivo que utiliza a força de uma bomba ou turbina para pulverizar líquidos sobre as plantas e/ou o solo. Ele é frequentemente acoplado em tratores ou veículos agrícolas e é capaz de fornecer uma ampla cobertura para áreas grandes ou de terreno muito irregular. O canhão pulverizador é ideal para a aplicação de produtos em culturas extensivas, como milho, soja, algodão e café. Sua capacidade de alcançar grandes distâncias e fornecer uma pulverização uniforme o torna uma escolha popular para muitos agricultores.",
+      "count": 6
+    },
+    {
+      "id": 305,
+      "name": "Cannons",
+      "slug": "cannons",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/linhas/cannons/",
+      "description": "A sprayer cannon is a device that uses the force of a pump or turbine to spray liquids over plants and/or soil. It is often mounted on tractors or agricultural vehicles and can provide wide coverage for large areas or very uneven terrain. The sprayer cannon is ideal for applying products to extensive crops such as corn, soybeans, cotton, and coffee. Its ability to reach great distances and provide uniform spraying makes it a popular choice for many farmers.",
+      "count": 6
+    },
+    {
+      "id": 303,
+      "name": "Cañones",
+      "slug": "canones",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/linhas/canones/",
+      "description": "Un cañón pulverizador es un dispositivo que utiliza la fuerza de una bomba o turbina para pulverizar líquidos sobre las plantas y/o el suelo. A menudo se acopla a tractores o vehículos agrícolas y es capaz de proporcionar una amplia cobertura para áreas grandes o terrenos muy irregulares. El cañón pulverizador es ideal para la aplicación de productos en cultivos extensivos, como maíz, soja, algodón y café. Su capacidad para alcanzar grandes distancias y proporcionar una pulverización uniforme lo convierte en una opción popular para muchos agricultores.",
+      "count": 6
+    },
+    {
+      "id": 30,
+      "name": "Distribuidores",
+      "slug": "distribuidor",
+      "parent": 0,
+      "link": "https://scmaquinas.com/linhas/distribuidor/",
+      "description": "Distribuidores são equipamentos projetados para distribuir adubos, compostos e fertilizantes à lanço, com ou sem direcional. Muito eficazes na distribuição de sementes e granulados, na linha de frutas e grãos por exemplo.",
+      "count": 3
+    },
+    {
+      "id": 31,
+      "name": "Misturadores",
+      "slug": "misturadores",
+      "parent": 0,
+      "link": "https://scmaquinas.com/linhas/misturadores/",
+      "description": "É um equipamento utilizado para preparar e homogeneizar caldas químicas, como defensivos agrícolas (herbicidas, fungicidas, inseticidas) e fertilizantes líquidos, antes de sua aplicação nas lavouras.",
+      "count": 2
+    },
+    {
+      "id": 315,
+      "name": "Pre-mixers",
+      "slug": "pre-mixers",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/linhas/pre-mixers/",
+      "description": "Pre-mixers are devices designed to perform a pre-mixing of agricultural chemicals before they are applied using spraying equipment. They ensure the quality and consistency of the spray mixture and reduce issues with nozzle and pipeline clogs.",
+      "count": 2
+    },
+    {
+      "id": 317,
+      "name": "Premezcladores",
+      "slug": "premezclador",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/linhas/premezclador/",
+      "description": "Los premezcladores son equipos diseñados para realizar una premezcla de defensivos agrícolas antes de que sean aplicados por equipos de pulverización, garantizando la calidad y homogeneidad de la mezcla y reduciendo problemas de obstrucción de boquillas y tuberías.",
+      "count": 2
+    },
+    {
+      "id": 441,
+      "name": "Pulverizador de Barra",
+      "slug": "pulverizador-de-barra",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/linhas/pulverizador-de-barra/",
+      "description": "",
+      "count": 2
+    },
+    {
+      "id": 435,
+      "name": "Pulverizador em Barras",
+      "slug": "pulverizador-em-barras-pt",
+      "parent": 0,
+      "link": "https://scmaquinas.com/linhas/pulverizador-em-barras-pt/",
+      "description": "Equipamento agrícola utilizado para a aplicação de defensivos agrícolas, fertilizantes líquidos ou herbicidas sobre lavouras de forma uniforme.",
+      "count": 2
+    },
+    {
+      "id": 319,
+      "name": "Spreaders",
+      "slug": "spreaders",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/linhas/spreaders/",
+      "description": "Distributors are equipment designed to spread fertilizers, compounds, and manures either broadcast or in a directional manner. They are highly effective for distributing seeds and granular products, for example, in fruit and grain crops.",
+      "count": 3
+    },
+    {
+      "id": 299,
+      "name": "Trailer",
+      "slug": "atomizer-trailer",
+      "parent": 291,
+      "link": "https://scmaquinas.com/en/linhas/atomizer-trailer/",
+      "description": "",
+      "count": 3
+    },
+    {
+      "id": 311,
+      "name": "Trailer",
+      "slug": "cannon-trailer",
+      "parent": 305,
+      "link": "https://scmaquinas.com/en/linhas/cannon-trailer/",
+      "description": "",
+      "count": 1
+    }
+  ],
+  "cultivos": [
+    {
+      "id": 28,
+      "name": "Abacate",
+      "slug": "abacate",
+      "link": "https://scmaquinas.com/cultivos/abacate/",
+      "description": "",
+      "count": 13
+    },
+    {
+      "id": 177,
+      "name": "Açaí",
+      "slug": "acai-en",
+      "link": "https://scmaquinas.com/en/cultivos/acai-en/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 26,
+      "name": "Açaí",
+      "slug": "acai",
+      "link": "https://scmaquinas.com/cultivos/acai/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 179,
+      "name": "Açaí",
+      "slug": "acai-es",
+      "link": "https://scmaquinas.com/es/cultivos/acai-es/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 207,
+      "name": "Agrios",
+      "slug": "agrios",
+      "link": "https://scmaquinas.com/es/cultivos/agrios/",
+      "description": "",
+      "count": 12
+    },
+    {
+      "id": 243,
+      "name": "Alto cultivo",
+      "slug": "alto-cultivo",
+      "link": "https://scmaquinas.com/es/cultivos/alto-cultivo/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 42,
+      "name": "Ameixa",
+      "slug": "ameixa",
+      "link": "https://scmaquinas.com/cultivos/ameixa/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 233,
+      "name": "Apple",
+      "slug": "apple",
+      "link": "https://scmaquinas.com/en/cultivos/apple/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 48,
+      "name": "Arroz",
+      "slug": "arroz",
+      "link": "https://scmaquinas.com/cultivos/arroz/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 187,
+      "name": "Arroz",
+      "slug": "arroz-es",
+      "link": "https://scmaquinas.com/es/cultivos/arroz-es/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 49,
+      "name": "Aveia",
+      "slug": "aveia",
+      "link": "https://scmaquinas.com/cultivos/aveia/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 195,
+      "name": "Avena",
+      "slug": "avena",
+      "link": "https://scmaquinas.com/es/cultivos/avena/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 173,
+      "name": "Avocado",
+      "slug": "avocado",
+      "link": "https://scmaquinas.com/en/cultivos/avocado/",
+      "description": "",
+      "count": 13
+    },
+    {
+      "id": 191,
+      "name": "Banana",
+      "slug": "banana-es",
+      "link": "https://scmaquinas.com/es/cultivos/banana-es/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 24,
+      "name": "Banana",
+      "slug": "banana",
+      "link": "https://scmaquinas.com/cultivos/banana/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 189,
+      "name": "Banana",
+      "slug": "banana-en",
+      "link": "https://scmaquinas.com/en/cultivos/banana-en/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 199,
+      "name": "Cacao",
+      "slug": "cacao",
+      "link": "https://scmaquinas.com/es/cultivos/cacao/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 44,
+      "name": "Cacau",
+      "slug": "cacau",
+      "link": "https://scmaquinas.com/cultivos/cacau/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 203,
+      "name": "Café",
+      "slug": "cafe-es",
+      "link": "https://scmaquinas.com/es/cultivos/cafe-es/",
+      "description": "",
+      "count": 12
+    },
+    {
+      "id": 2,
+      "name": "Café",
+      "slug": "cafe",
+      "link": "https://scmaquinas.com/cultivos/cafe/",
+      "description": "",
+      "count": 12
+    },
+    {
+      "id": 211,
+      "name": "Caña de azúcar",
+      "slug": "cana-de-azucar",
+      "link": "https://scmaquinas.com/es/cultivos/cana-de-azucar/",
+      "description": "",
+      "count": 6
+    },
+    {
+      "id": 11,
+      "name": "Cana-de-açúcar",
+      "slug": "cana-de-acucar",
+      "link": "https://scmaquinas.com/cultivos/cana-de-acucar/",
+      "description": "",
+      "count": 6
+    },
+    {
+      "id": 249,
+      "name": "Cassava",
+      "slug": "cassava",
+      "link": "https://scmaquinas.com/en/cultivos/cassava/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 183,
+      "name": "Ciruela",
+      "slug": "ciruela",
+      "link": "https://scmaquinas.com/es/cultivos/ciruela/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 3,
+      "name": "Citros",
+      "slug": "citros",
+      "link": "https://scmaquinas.com/cultivos/citros/",
+      "description": "",
+      "count": 12
+    },
+    {
+      "id": 205,
+      "name": "Citrus",
+      "slug": "citrus",
+      "link": "https://scmaquinas.com/en/cultivos/citrus/",
+      "description": "",
+      "count": 12
+    },
+    {
+      "id": 215,
+      "name": "Coco",
+      "slug": "coco-es",
+      "link": "https://scmaquinas.com/es/cultivos/coco-es/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 29,
+      "name": "Coco",
+      "slug": "coco",
+      "link": "https://scmaquinas.com/cultivos/coco/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 197,
+      "name": "Cocoa",
+      "slug": "cocoa",
+      "link": "https://scmaquinas.com/en/cultivos/cocoa/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 213,
+      "name": "Coconut",
+      "slug": "coconut",
+      "link": "https://scmaquinas.com/en/cultivos/coconut/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 201,
+      "name": "Coffee",
+      "slug": "coffee",
+      "link": "https://scmaquinas.com/en/cultivos/coffee/",
+      "description": "",
+      "count": 12
+    },
+    {
+      "id": 282,
+      "name": "Corn",
+      "slug": "corn",
+      "link": "https://scmaquinas.com/en/cultivos/corn/",
+      "description": "",
+      "count": 8
+    },
+    {
+      "id": 35,
+      "name": "Cultivo Alto",
+      "slug": "cultivo-alto",
+      "link": "https://scmaquinas.com/cultivos/cultivo-alto/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 17,
+      "name": "Flores",
+      "slug": "flores",
+      "link": "https://scmaquinas.com/cultivos/flores/",
+      "description": "",
+      "count": 13
+    },
+    {
+      "id": 219,
+      "name": "Flores",
+      "slug": "flores-es",
+      "link": "https://scmaquinas.com/es/cultivos/flores-es/",
+      "description": "",
+      "count": 13
+    },
+    {
+      "id": 217,
+      "name": "Flowers",
+      "slug": "flowers",
+      "link": "https://scmaquinas.com/en/cultivos/flowers/",
+      "description": "",
+      "count": 13
+    },
+    {
+      "id": 257,
+      "name": "Grape",
+      "slug": "grape",
+      "link": "https://scmaquinas.com/en/cultivos/grape/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 278,
+      "name": "Grapevines",
+      "slug": "grapevines",
+      "link": "https://scmaquinas.com/en/cultivos/grapevines/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 237,
+      "name": "Hops",
+      "slug": "hops",
+      "link": "https://scmaquinas.com/en/cultivos/hops/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 38,
+      "name": "Hortaliças",
+      "slug": "hortalicas",
+      "link": "https://scmaquinas.com/cultivos/hortalicas/",
+      "description": "",
+      "count": 10
+    },
+    {
+      "id": 14,
+      "name": "Laranja",
+      "slug": "laranja",
+      "link": "https://scmaquinas.com/cultivos/laranja/",
+      "description": "",
+      "count": 14
+    },
+    {
+      "id": 221,
+      "name": "Lemon",
+      "slug": "lemon",
+      "link": "https://scmaquinas.com/en/cultivos/lemon/",
+      "description": "",
+      "count": 14
+    },
+    {
+      "id": 15,
+      "name": "Limão",
+      "slug": "limao",
+      "link": "https://scmaquinas.com/cultivos/limao/",
+      "description": "",
+      "count": 14
+    },
+    {
+      "id": 223,
+      "name": "Limón",
+      "slug": "limon",
+      "link": "https://scmaquinas.com/es/cultivos/limon/",
+      "description": "",
+      "count": 14
+    },
+    {
+      "id": 47,
+      "name": "Lúpulo",
+      "slug": "lupulo",
+      "link": "https://scmaquinas.com/cultivos/lupulo/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 239,
+      "name": "Lúpulo",
+      "slug": "lupulo-es",
+      "link": "https://scmaquinas.com/es/cultivos/lupulo-es/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 50,
+      "name": "Maçã",
+      "slug": "maca",
+      "link": "https://scmaquinas.com/cultivos/maca/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 284,
+      "name": "Maíz",
+      "slug": "maiz",
+      "link": "https://scmaquinas.com/es/cultivos/maiz/",
+      "description": "",
+      "count": 8
+    },
+    {
+      "id": 27,
+      "name": "Mamão",
+      "slug": "mamao",
+      "link": "https://scmaquinas.com/cultivos/mamao/",
+      "description": "",
+      "count": 11
+    },
+    {
+      "id": 251,
+      "name": "Mandioca",
+      "slug": "mandioca-es",
+      "link": "https://scmaquinas.com/es/cultivos/mandioca-es/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 36,
+      "name": "Mandioca",
+      "slug": "mandioca",
+      "link": "https://scmaquinas.com/cultivos/mandioca/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 235,
+      "name": "Manzana",
+      "slug": "manzana",
+      "link": "https://scmaquinas.com/es/cultivos/manzana/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 45,
+      "name": "Maracujá",
+      "slug": "maracuja",
+      "link": "https://scmaquinas.com/cultivos/maracuja/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 255,
+      "name": "Maracuyá",
+      "slug": "maracuya",
+      "link": "https://scmaquinas.com/es/cultivos/maracuya/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 12,
+      "name": "Milho",
+      "slug": "milho",
+      "link": "https://scmaquinas.com/cultivos/milho/",
+      "description": "",
+      "count": 8
+    },
+    {
+      "id": 227,
+      "name": "Naranja",
+      "slug": "naranja",
+      "link": "https://scmaquinas.com/es/cultivos/naranja/",
+      "description": "",
+      "count": 14
+    },
+    {
+      "id": 25,
+      "name": "Nozes",
+      "slug": "nozes",
+      "link": "https://scmaquinas.com/cultivos/nozes/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 286,
+      "name": "Nueces",
+      "slug": "nueces-es",
+      "link": "https://scmaquinas.com/es/cultivos/nueces-es/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 289,
+      "name": "Nuts",
+      "slug": "nuts",
+      "link": "https://scmaquinas.com/en/cultivos/nuts/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 193,
+      "name": "Oat",
+      "slug": "oat",
+      "link": "https://scmaquinas.com/en/cultivos/oat/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 225,
+      "name": "Orange",
+      "slug": "orange",
+      "link": "https://scmaquinas.com/en/cultivos/orange/",
+      "description": "",
+      "count": 14
+    },
+    {
+      "id": 269,
+      "name": "Ornamental plants",
+      "slug": "ornamental",
+      "link": "https://scmaquinas.com/en/cultivos/ornamental/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 175,
+      "name": "Palta",
+      "slug": "palta",
+      "link": "https://scmaquinas.com/es/cultivos/palta/",
+      "description": "",
+      "count": 13
+    },
+    {
+      "id": 245,
+      "name": "Papaya",
+      "slug": "papaya-en",
+      "link": "https://scmaquinas.com/en/cultivos/papaya-en/",
+      "description": "",
+      "count": 11
+    },
+    {
+      "id": 247,
+      "name": "Papaya",
+      "slug": "papaya-es",
+      "link": "https://scmaquinas.com/es/cultivos/papaya-es/",
+      "description": "",
+      "count": 11
+    },
+    {
+      "id": 37,
+      "name": "Parreiras",
+      "slug": "parreiras",
+      "link": "https://scmaquinas.com/cultivos/parreiras/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 253,
+      "name": "Passion fruit",
+      "slug": "passion",
+      "link": "https://scmaquinas.com/en/cultivos/passion/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 34,
+      "name": "Pastagem",
+      "slug": "pastagem",
+      "link": "https://scmaquinas.com/cultivos/pastagem/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 276,
+      "name": "Pastos",
+      "slug": "pastos",
+      "link": "https://scmaquinas.com/es/cultivos/pastos/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 273,
+      "name": "Pasture",
+      "slug": "pasture-en",
+      "link": "https://scmaquinas.com/en/cultivos/pasture-en/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 43,
+      "name": "Plantas Ornamentais",
+      "slug": "plantas-ornamentais",
+      "link": "https://scmaquinas.com/cultivos/plantas-ornamentais/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 271,
+      "name": "Plantas ornamentales",
+      "slug": "ornamentales",
+      "link": "https://scmaquinas.com/es/cultivos/ornamentales/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 181,
+      "name": "Plum",
+      "slug": "plum",
+      "link": "https://scmaquinas.com/en/cultivos/plum/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 185,
+      "name": "Rice",
+      "slug": "rice",
+      "link": "https://scmaquinas.com/en/cultivos/rice/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 8,
+      "name": "Soja",
+      "slug": "soja",
+      "link": "https://scmaquinas.com/cultivos/soja/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 263,
+      "name": "Soja",
+      "slug": "soja-es",
+      "link": "https://scmaquinas.com/es/cultivos/soja-es/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 261,
+      "name": "Soy",
+      "slug": "soy",
+      "link": "https://scmaquinas.com/en/cultivos/soy/",
+      "description": "",
+      "count": 5
+    },
+    {
+      "id": 209,
+      "name": "Sugarcane",
+      "slug": "sugarcane",
+      "link": "https://scmaquinas.com/en/cultivos/sugarcane/",
+      "description": "",
+      "count": 6
+    },
+    {
+      "id": 53,
+      "name": "Tabaco",
+      "slug": "tabaco",
+      "link": "https://scmaquinas.com/cultivos/tabaco/",
+      "description": "",
+      "count": 6
+    },
+    {
+      "id": 267,
+      "name": "Tabaco",
+      "slug": "tabaco-es",
+      "link": "https://scmaquinas.com/es/cultivos/tabaco-es/",
+      "description": "",
+      "count": 6
+    },
+    {
+      "id": 241,
+      "name": "Tall cultivation",
+      "slug": "tall",
+      "link": "https://scmaquinas.com/en/cultivos/tall/",
+      "description": "",
+      "count": 4
+    },
+    {
+      "id": 265,
+      "name": "Tobacco",
+      "slug": "tobacco",
+      "link": "https://scmaquinas.com/en/cultivos/tobacco/",
+      "description": "",
+      "count": 6
+    },
+    {
+      "id": 46,
+      "name": "Uva",
+      "slug": "uva",
+      "link": "https://scmaquinas.com/cultivos/uva/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 259,
+      "name": "Uva",
+      "slug": "uva-es",
+      "link": "https://scmaquinas.com/es/cultivos/uva-es/",
+      "description": "",
+      "count": 9
+    },
+    {
+      "id": 229,
+      "name": "Vegetables",
+      "slug": "vegetables",
+      "link": "https://scmaquinas.com/en/cultivos/vegetables/",
+      "description": "",
+      "count": 10
+    },
+    {
+      "id": 231,
+      "name": "Verduras",
+      "slug": "verduras",
+      "link": "https://scmaquinas.com/es/cultivos/verduras/",
+      "description": "",
+      "count": 10
+    },
+    {
+      "id": 280,
+      "name": "Vides",
+      "slug": "vides",
+      "link": "https://scmaquinas.com/es/cultivos/vides/",
+      "description": "",
+      "count": 9
+    }
+  ],
+  "categories": [
+    {
+      "id": 351,
+      "name": "CONSEJOS",
+      "slug": "consejos",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/category/consejos/",
+      "description": "",
+      "count": 0
+    },
+    {
+      "id": 41,
+      "name": "DICAS",
+      "slug": "dicas",
+      "parent": 0,
+      "link": "https://scmaquinas.com/category/dicas/",
+      "description": "",
+      "count": 3
+    },
+    {
+      "id": 1,
+      "name": "GESTÃO",
+      "slug": "gestao",
+      "parent": 0,
+      "link": "https://scmaquinas.com/category/gestao/",
+      "description": "",
+      "count": 3
+    },
+    {
+      "id": 353,
+      "name": "NEWS",
+      "slug": "news",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/category/news/",
+      "description": "",
+      "count": 0
+    },
+    {
+      "id": 355,
+      "name": "NOVEDADES",
+      "slug": "novedades",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/category/novedades/",
+      "description": "",
+      "count": 0
+    },
+    {
+      "id": 52,
+      "name": "NOVIDADES",
+      "slug": "novidades",
+      "parent": 0,
+      "link": "https://scmaquinas.com/category/novidades/",
+      "description": "",
+      "count": 0
+    },
+    {
+      "id": 89,
+      "name": "Sem categoria",
+      "slug": "sem-categoria-en",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/category/sem-categoria-en/",
+      "description": "",
+      "count": 0
+    },
+    {
+      "id": 93,
+      "name": "Sem categoria",
+      "slug": "sem-categoria-es",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/category/sem-categoria-es/",
+      "description": "",
+      "count": 0
+    },
+    {
+      "id": 357,
+      "name": "TECHNOLOGY",
+      "slug": "tecnology",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/category/tecnology/",
+      "description": "",
+      "count": 0
+    },
+    {
+      "id": 51,
+      "name": "TECNOLOGIA",
+      "slug": "tecnologia",
+      "parent": 0,
+      "link": "https://scmaquinas.com/category/tecnologia/",
+      "description": "",
+      "count": 3
+    },
+    {
+      "id": 359,
+      "name": "TECNOLOGÍA",
+      "slug": "tecnologia-es",
+      "parent": 0,
+      "link": "https://scmaquinas.com/es/category/tecnologia-es/",
+      "description": "",
+      "count": 0
+    },
+    {
+      "id": 349,
+      "name": "TIPS",
+      "slug": "tips",
+      "parent": 0,
+      "link": "https://scmaquinas.com/en/category/tips/",
+      "description": "",
+      "count": 0
+    }
+  ]
+}

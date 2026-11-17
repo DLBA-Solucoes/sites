@@ -1,0 +1,213 @@
+---
+import { LANGS, secao, t, url, type Lang } from '../lib/i18n';
+import { CONTATO } from '../data/empresa';
+import Icone from './Icone.astro';
+import logo from '../assets/marca/sc-horizontal-claro.svg';
+
+interface Props {
+  lang: Lang;
+  alternativas: Partial<Record<Lang, string>>;
+  secaoAtiva?: string;
+}
+const { lang, alternativas, secaoAtiva } = Astro.props;
+const ui = t(lang);
+const itens = (['maquinas', 'culturas', 'empresa', 'blog', 'contato'] as const).map((s) => ({
+  s,
+  href: secao(lang, s),
+  rotulo: ui.nav[s],
+}));
+const tel = CONTATO.telefones.find((x) => x.principal)!;
+const destinoIdioma = (l: Lang) => alternativas[l] ?? url(l);
+---
+
+<header class="cab sticky top-0 z-40 border-b regra bg-palco/95 backdrop-blur-sm">
+  <div class="wrap flex h-[var(--header-h)] items-center gap-6">
+    <a href={url(lang)} class="logo shrink-0" aria-label="SC Máquinas e Implementos Agrícolas">
+      <img src={logo.src} width="146" height="40" alt="" class="h-9 w-auto sm:h-10" />
+    </a>
+
+    <nav class="ml-auto hidden lg:block" aria-label={ui.menu}>
+      <ul class="flex items-center gap-1">
+        {
+          itens.map((i) => (
+            <li>
+              <a href={i.href} class="nav-link" aria-current={secaoAtiva === i.s ? 'page' : undefined}>
+                {i.rotulo}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a href={`tel:${tel.link}`} class="tel num ml-auto hidden items-center gap-2 font-bold sm:flex lg:ml-4">
+      <Icone nome="telefone" class="size-4 text-sinal-vivo" />
+      {tel.numero.replace('+55 ', '')}
+    </a>
+
+    <ul class="idiomas hidden items-center sm:flex" aria-label={ui.idioma}>
+      {
+        LANGS.map((l) => (
+          <li>
+            <a href={destinoIdioma(l)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined} class="idioma">
+              {l.toUpperCase()}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <button type="button" class="menu-btn ml-auto grid sm:ml-0 lg:hidden" aria-expanded="false" aria-controls="menu-movel" data-menu-abrir>
+      <Icone nome="menu" class="size-6" />
+      <span class="sr-only">{ui.menu}</span>
+    </button>
+  </div>
+
+  <div id="menu-movel" class="menu-movel lg:hidden" hidden>
+    <nav class="wrap pt-4 pb-8" aria-label={ui.menu}>
+      <ul class="border-t regra">
+        {
+          itens.map((i) => (
+            <li class="border-b regra">
+              <a href={i.href} class="titulo flex items-center justify-between py-4 text-3xl" aria-current={secaoAtiva === i.s ? 'page' : undefined}>
+                {i.rotulo}
+                <Icone nome="seta" class="size-6 text-nevoa" />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <div class="mt-6 flex items-center justify-between gap-4">
+        <a href={`tel:${tel.link}`} class="num flex items-center gap-2 text-lg font-bold">
+          <Icone nome="telefone" class="size-5 text-sinal-vivo" />
+          {tel.numero}
+        </a>
+        <ul class="flex" aria-label={ui.idioma}>
+          {
+            LANGS.map((l) => (
+              <li>
+                <a href={destinoIdioma(l)} hreflang={l} lang={l} aria-current={l === lang ? 'true' : undefined} class="idioma">
+                  {l.toUpperCase()}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav-link {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    font-stretch: 85%;
+    font-weight: 650;
+    font-size: 0.9375rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-nevoa);
+    transition: color 150ms var(--ease-out);
+    position: relative;
+  }
+  .nav-link:hover,
+  .nav-link[aria-current='page'] {
+    color: var(--color-papel);
+  }
+  .nav-link[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: -0.6rem;
+    height: 2px;
+    background: var(--color-sinal-vivo);
+  }
+  .tel {
+    text-decoration: none;
+    font-stretch: 90%;
+  }
+  .idioma {
+    display: grid;
+    place-items: center;
+    min-width: 44px;
+    min-height: 44px;
+    font-stretch: 85%;
+    font-weight: 700;
+    font-size: 0.8125rem;
+    letter-spacing: 0.06em;
+    text-decoration: none;
+    color: var(--color-nevoa);
+  }
+  .idioma:hover {
+    color: var(--color-papel);
+  }
+  .idioma[aria-current='true'] {
+    color: var(--color-papel);
+    text-decoration: underline;
+    text-decoration-color: var(--color-sinal-vivo);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+  .menu-btn {
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-right: -8px;
+    color: var(--color-papel);
+  }
+  .menu-movel {
+    border-top: 1px solid var(--color-aco);
+    background: var(--color-palco);
+    height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+  }
+  .menu-movel a {
+    text-decoration: none;
+  }
+  .menu-movel a[aria-current='page'] {
+    color: var(--color-sinal-vivo);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .menu-movel:not([hidden]) {
+      animation: abre 380ms var(--ease-out);
+    }
+  }
+  @keyframes abre {
+    from {
+      opacity: 0;
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+    }
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu-abrir]');
+  const menu = document.getElementById('menu-movel');
+  if (btn && menu) {
+    const fechar = () => {
+      menu.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+    };
+    btn.addEventListener('click', () => {
+      const abrir = menu.hidden;
+      menu.hidden = !abrir;
+      btn.setAttribute('aria-expanded', String(abrir));
+      document.documentElement.style.overflow = abrir ? 'hidden' : '';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) {
+        fechar();
+        btn.focus();
+      }
+    });
+    matchMedia('(min-width: 1024px)').addEventListener('change', (e) => e.matches && fechar());
+  }
+</script>

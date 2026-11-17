@@ -1,0 +1,54 @@
+---
+// Barra fixa de contato no celular: ligar e e-mail (e WhatsApp quando houver número).
+import { t, type Lang } from '../lib/i18n';
+import { CONTATO } from '../data/empresa';
+import Icone from './Icone.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = t(lang);
+const tel = CONTATO.telefones.find((x) => x.principal)!;
+const email = lang === 'pt' ? CONTATO.emails.vendas : CONTATO.emails.exportacao;
+---
+
+<div class="barra fixed inset-x-0 bottom-0 z-30 grid border-t regra bg-palco sm:hidden" style={`grid-template-columns: repeat(${CONTATO.whatsapp ? 3 : 2}, 1fr)`}>
+  {
+    CONTATO.whatsapp && (
+      <a href={`https://wa.me/${CONTATO.whatsapp}`} class="item bg-sinal text-white">
+        <Icone nome="whatsapp" class="size-5" />
+        {ui.whatsapp}
+      </a>
+    )
+  }
+  <a href={`tel:${tel.link}`} class:list={['item', !CONTATO.whatsapp && 'bg-sinal text-white']}>
+    <Icone nome="telefone" class="size-5" />
+    {ui.ligar}
+  </a>
+  <a href={`mailto:${email}`} class="item">
+    <Icone nome="email" class="size-5" />
+    {ui.email}
+  </a>
+</div>
+
+<style>
+  .barra {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 56px;
+    font-stretch: 80%;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .item + .item {
+    border-left: 1px solid var(--color-aco);
+  }
+</style>

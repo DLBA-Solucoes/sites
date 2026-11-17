@@ -1,0 +1,315 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Busca from '../components/Busca.astro';
+import IndiceCatalogo from '../components/IndiceCatalogo.astro';
+import FaixaCampo from '../components/FaixaCampo.astro';
+import BlocoContato from '../components/BlocoContato.astro';
+import Icone from '../components/Icone.astro';
+import { secao, t, type Lang } from '../lib/i18n';
+import { MAQUINAS, foto, img, palco, slugMaquina, valorSpec } from '../lib/dados';
+import { EMPRESA } from '../data/empresa';
+
+interface Props {
+  lang: Lang;
+  alternativas: Partial<Record<Lang, string>>;
+}
+const { lang, alternativas } = Astro.props;
+const ui = t(lang);
+const estrela = MAQUINAS.find((m) => m.chave === 'ata-1000')!;
+const fabrica = foto('transportador-fabrica');
+const marcos = EMPRESA[lang].marcos;
+
+// Pontos numerados sobre a máquina do palco, ligados à ficha real do ATA 1000.
+const pontos = [
+  { n: 1, x: 24, y: 52, rotulo: valorSpec(estrela, lang, 'turbina'), nome: estrela.i18n[lang].specs[0][0] },
+  { n: 2, x: 68, y: 22, esquerda: true, rotulo: estrela.i18n[lang].specs[2][1], nome: estrela.i18n[lang].specs[2][0] },
+  { n: 3, x: 74, y: 80, esquerda: true, rotulo: estrela.i18n[lang].specs[11][1], nome: estrela.i18n[lang].specs[11][0] },
+];
+---
+
+<Base lang={lang} titulo={`SC Máquinas · ${ui.heroTitulo}`} descricao={ui.heroLead} alternativas={alternativas}>
+  <section class="palco" aria-labelledby="hero-titulo">
+    <div class="wrap palco-grade">
+      <p class="codigo-fantasma num entra-codigo" aria-hidden="true">{estrela.codigo}</p>
+
+      <div class="texto">
+        <h1 id="hero-titulo" class="display entra text-[clamp(2.9rem,1.6rem+4.2vw,5.25rem)]" style="--i:1">{ui.heroTitulo}</h1>
+        <p class="lead entra mt-6 text-nevoa" style="--i:2">{ui.heroLead}</p>
+      </div>
+
+      <figure class="maquina">
+        <a href={secao(lang, 'maquinas', slugMaquina(estrela))} class="maquina-link" aria-label={`${estrela.codigo} · ${estrela.i18n[lang].modelo}`}>
+          <Image
+            src={img(palco(estrela).arquivo)}
+            alt=""
+            widths={[640, 960, 1400, 1800]}
+            sizes="(min-width: 1024px) 58vw, 100vw"
+            loading="eager"
+            fetchpriority="high"
+            class="entra-maquina"
+          />
+        </a>
+        <ul class="pontos" aria-hidden="true">
+          {
+            pontos.map((p, i) => (
+              <li class:list={['ponto entra-ponto', p.esquerda && 'esquerda']} style={`--x:${p.x}%;--y:${p.y}%;--i:${i}`}>
+                <span class="bolinha num">{p.n}</span>
+                <span class="etiqueta num">
+                  <span class="text-nevoa">{p.nome}</span> {p.rotulo}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+        <figcaption class="legenda rotulo num">
+          <span class="text-sinal-vivo">{estrela.codigo}</span>
+          <span>{estrela.i18n[lang].modelo}</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <div class="wrap busca-wrap entra" style="--i:4">
+      <h2 class="sr-only">{ui.busca.titulo}</h2>
+      <Busca lang={lang} modo="ir" />
+    </div>
+  </section>
+
+  <section class="py-[clamp(4.5rem,10vw,8rem)]" aria-labelledby="catalogo-titulo">
+    <div class="wrap">
+      <div class="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <h2 id="catalogo-titulo" class="display text-[clamp(2.5rem,1.5rem+4.5vw,5.5rem)]">{ui.catalogo}</h2>
+        <a href={secao(lang, 'maquinas')} class="btn btn-linha">{ui.verTodas}<Icone nome="seta" /></a>
+      </div>
+      <IndiceCatalogo lang={lang} titulos="h3" />
+    </div>
+  </section>
+
+  <section class="campo border-y regra bg-palco-2 py-[clamp(4rem,8vw,7rem)]" aria-labelledby="campo-titulo">
+    <div class="wrap mb-10 grid gap-4 md:grid-cols-2 md:items-end">
+      <h2 id="campo-titulo" class="display text-[clamp(2.5rem,1.5rem+4.5vw,5.5rem)]">{ui.campoTitulo}</h2>
+      <p class="lead text-nevoa">{ui.campoLead}</p>
+    </div>
+    <FaixaCampo lang={lang} />
+  </section>
+
+  <section class="fabrica" aria-labelledby="fabrica-titulo">
+    <div class="fabrica-foto">
+      <Image src={img(fabrica.arquivo)} alt="" widths={[800, 1400, 2000]} sizes="100vw" loading="lazy" />
+    </div>
+    <div class="wrap fabrica-texto">
+      <div class="papel fabrica-ficha">
+        <h2 id="fabrica-titulo" class="titulo text-[clamp(2rem,1.3rem+2.6vw,3.5rem)]">{ui.fabricaTitulo}</h2>
+        <p class="mt-5 prosa text-tinta-2">{ui.fabricaTexto}</p>
+        <ol class="linha-tempo num">
+          {
+            marcos.map((m) => (
+              <li>
+                <span class="ano">{m.ano}</span>
+                <span class="evento">{m.texto}</span>
+              </li>
+            ))
+          }
+        </ol>
+        <a href={secao(lang, 'empresa')} class="btn btn-sinal mt-8">{ui.conhecaEmpresa}<Icone nome="seta" /></a>
+      </div>
+    </div>
+  </section>
+
+  <BlocoContato lang={lang} />
+</Base>
+
+<style>
+  .palco {
+    position: relative;
+    overflow: hidden;
+    padding-top: clamp(1.5rem, 4vw, 3rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+    background:
+      radial-gradient(ellipse 60% 55% at 72% 48%, #22262b 0%, transparent 70%),
+      var(--color-palco);
+  }
+  .palco-grade {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .codigo-fantasma {
+    position: absolute;
+    right: calc(var(--gutter) * -0.5);
+    top: 42%;
+    font-stretch: 62%;
+    font-weight: 900;
+    font-size: clamp(7rem, 26vw, 24rem);
+    line-height: 0.8;
+    letter-spacing: -0.02em;
+    color: #262b31;
+    white-space: nowrap;
+    pointer-events: none;
+    user-select: none;
+  }
+  .texto {
+    position: relative;
+    z-index: 2;
+    padding-top: 1rem;
+  }
+  .maquina {
+    position: relative;
+    z-index: 1;
+    margin: 0 calc(var(--gutter) * -0.5);
+  }
+  .maquina-link {
+    display: block;
+  }
+  .maquina :global(img) {
+    width: 100%;
+    filter: drop-shadow(0 40px 40px rgb(0 0 0 / 0.55));
+  }
+  .pontos {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    display: none;
+  }
+  @media (min-width: 640px) {
+    .pontos {
+      display: block;
+    }
+  }
+  .ponto {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transform: translate(-14px, -50%);
+  }
+  .bolinha {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--color-sinal);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.8125rem;
+    box-shadow:
+      0 0 0 4px rgb(17 19 21 / 0.6),
+      0 6px 14px rgb(0 0 0 / 0.5);
+    flex: none;
+  }
+  .ponto.esquerda {
+    flex-direction: row-reverse;
+    transform: translate(calc(-100% + 14px), -50%);
+  }
+  .etiqueta {
+    display: none;
+    padding: 0.35rem 0.6rem;
+    background: rgb(17 19 21 / 0.86);
+    border: 1px solid var(--color-aco-2);
+    font-size: 0.875rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .legenda {
+    display: flex;
+    gap: 1rem;
+    color: var(--color-nevoa);
+    margin-top: -0.5rem;
+    padding-inline: calc(var(--gutter) * 0.5);
+  }
+  .busca-wrap {
+    position: relative;
+    z-index: 3;
+    margin-top: 1.5rem;
+  }
+  @media (min-width: 640px) {
+    .etiqueta {
+      display: block;
+    }
+  }
+  @media (min-width: 1024px) {
+    .palco-grade {
+      grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+      align-items: center;
+      min-height: min(66vh, 640px);
+    }
+    .codigo-fantasma {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .maquina {
+      margin: 0 calc(var(--gutter) * -1) 0 -6%;
+    }
+    .texto {
+      padding-top: 0;
+    }
+    .busca-wrap {
+      margin-top: 0.5rem;
+    }
+  }
+
+  .fabrica {
+    position: relative;
+    display: grid;
+  }
+  .fabrica-foto,
+  .fabrica-texto {
+    grid-area: 1 / 1;
+  }
+  .fabrica-foto :global(img) {
+    width: 100%;
+    height: 100%;
+    min-height: 440px;
+    max-height: 90vh;
+    object-fit: cover;
+    object-position: 60% 50%;
+  }
+  .fabrica-texto {
+    display: flex;
+    align-items: flex-end;
+    padding-block: clamp(2rem, 6vw, 5rem);
+  }
+  .fabrica-ficha {
+    width: 100%;
+    max-width: 40rem;
+    padding: clamp(1.5rem, 3vw, 2.75rem);
+    box-shadow: 0 30px 60px rgb(0 0 0 / 0.45);
+  }
+  @media (max-width: 767px) {
+    .fabrica {
+      display: block;
+    }
+    .fabrica-foto :global(img) {
+      min-height: 0;
+      aspect-ratio: 4 / 3;
+    }
+    .fabrica-texto {
+      padding: 0;
+      margin-top: -3rem;
+      position: relative;
+    }
+    .fabrica-ficha {
+      max-width: none;
+    }
+  }
+  .linha-tempo {
+    margin-top: 1.75rem;
+    border-top: 1px solid var(--color-papel-2);
+  }
+  .linha-tempo li {
+    display: grid;
+    grid-template-columns: 4.25rem 1fr;
+    gap: 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid var(--color-papel-2);
+    font-size: 0.9375rem;
+  }
+  .ano {
+    font-weight: 800;
+    color: var(--color-sinal);
+  }
+</style>

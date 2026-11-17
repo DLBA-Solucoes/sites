@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.env*
+# Coletas brutas dos sites antigos (pesadas, só locais)
+sites/*/_original/imagens/
+.impeccable/mocks/
+.impeccable/review/
+.impeccable/questions/
+sites/*/_original/campo/
+_site/

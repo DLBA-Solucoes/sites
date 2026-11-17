@@ -1,0 +1,9 @@
+{
+  "name": "sites-cdl",
+  "private": true,
+  "workspaces": ["packages/*", "sites/*"],
+  "scripts": {
+    "dev:sc": "npm run dev -w sc-maquinas",
+    "build:sc": "npm run build -w sc-maquinas"
+  }
+}

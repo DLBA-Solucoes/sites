@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import BlocoContato from '../components/BlocoContato.astro';
+import Icone from '../components/Icone.astro';
+import { t, url } from '../lib/i18n';
+import { img, type Post } from '../lib/dados';
+
+interface Props {
+  post: Post;
+  alternativas: Partial<Record<'pt' | 'en' | 'es', string>>;
+}
+const { post, alternativas } = Astro.props;
+const ui = t('pt');
+const data = new Date(`${post.data}T12:00:00`).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+// Junta itens de lista consecutivos num <ul>.
+type Bloco = Post['blocos'][number];
+const grupos: (Bloco | { tipo: 'lista'; itens: string[] })[] = [];
+for (const b of post.blocos) {
+  const ultimo = grupos.at(-1);
+  if (b.tipo === 'item') {
+    if (ultimo && ultimo.tipo === 'lista') ultimo.itens.push(b.texto);
+    else grupos.push({ tipo: 'lista', itens: [b.texto] });
+  } else grupos.push(b);
+}
+---
+
+<Base lang="pt" titulo={post.titulo} descricao={post.resumo} alternativas={alternativas} secaoAtiva="blog" ogImagem={post.capa ? img(post.capa.arquivo) : undefined}>
+  <article>
+    <header class="wrap cab">
+      <a href={url('pt', 'blog')} class="rotulo inline-flex items-center gap-2 text-nevoa no-underline hover:text-papel">
+        <Icone nome="seta" class="size-4 rotate-180" />
+        {ui.voltarBlog}
+      </a>
+      <h1 class="titulo entra mt-6 max-w-[22ch] text-[clamp(2.4rem,1.4rem+4vw,4.75rem)]">{post.titulo}</h1>
+      <time datetime={post.data} class="rotulo num entra mt-5 block text-nevoa" style="--i:1">{data}</time>
+    </header>
+    {
+      post.capa && (
+        <div class="wrap">
+          <Image src={img(post.capa.arquivo)} alt="" widths={[800, 1400]} sizes="(min-width: 1440px) 1344px, 100vw" class="capa" loading="eager" />
+        </div>
+      )
+    }
+    <div class="wrap texto py-[clamp(3rem,6vw,5rem)]">
+      {
+        grupos.map((g) =>
+          g.tipo === 'titulo' ? (
+            <h2 class="titulo">{g.texto}</h2>
+          ) : g.tipo === 'lista' ? (
+            <ul>
+              {g.itens.map((i) => (
+                <li>{i}</li>
+              ))}
+            </ul>
+          ) : (
+            <p>{g.texto}</p>
+          ),
+        )
+      }
+    </div>
+  </article>
+  <div class="border-t regra"><BlocoContato lang="pt" /></div>
+</Base>
+
+<style>
+  .cab {
+    padding-top: clamp(2rem, 5vw, 4rem);
+    padding-bottom: 2.5rem;
+  }
+  :global(.capa) {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: cover;
+  }
+  .texto {
+    max-width: calc(68ch + 2 * var(--gutter));
+    font-size: 1.125rem;
+    line-height: 1.65;
+  }
+  .texto h2 {
+    font-size: clamp(1.6rem, 1.3rem + 1vw, 2.1rem);
+    margin-top: 2.5em;
+    margin-bottom: 0.6em;
+  }
+  .texto h2:first-child {
+    margin-top: 0;
+  }
+  .texto p + p {
+    margin-top: 1em;
+  }
+  .texto ul {
+    margin: 1em 0;
+    padding-left: 1.25rem;
+    list-style: square;
+  }
+  .texto li::marker {
+    color: var(--color-sinal-vivo);
+  }
+  .texto li + li {
+    margin-top: 0.5em;
+  }
+</style>

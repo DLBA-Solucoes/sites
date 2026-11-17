@@ -1,0 +1,278 @@
+---
+// Busca por cultura + potência do trator + engate.
+// modo "ir": o botão leva ao catálogo com os filtros; modo "filtrar": filtra a lista da página ao vivo.
+import { ENGATE, secao, t, type Lang } from '../lib/i18n';
+import { culturas, dadosFiltro } from '../lib/dados';
+import Icone from './Icone.astro';
+
+interface Props {
+  lang: Lang;
+  modo: 'ir' | 'filtrar';
+  culturaFixa?: string;
+  class?: string;
+}
+const { lang, modo, culturaFixa, class: cls } = Astro.props;
+const ui = t(lang).busca;
+const lista = culturas(lang);
+const POTENCIAS = [25, 40, 55, 75];
+const dados = dadosFiltro(lang);
+const destino = secao(lang, 'maquinas');
+---
+
+<form
+  class:list={['busca papel', cls]}
+  action={destino}
+  method="get"
+  data-busca={modo}
+  data-dados={JSON.stringify(dados)}
+  data-textos={JSON.stringify({ ver: [ui.ver(0), ui.ver(1), ui.ver(2)], resultado: [ui.resultado(1), ui.resultado(2)], nenhuma: ui.nenhuma })}
+  data-lang={lang}
+  role="search"
+  aria-label={ui.titulo}
+>
+  <div class="campo">
+    <label for={`b-cultura-${modo}`} class="rotulo text-tinta-2">{ui.cultura}</label>
+    <div class="select">
+      <select id={`b-cultura-${modo}`} name="cultura" disabled={!!culturaFixa}>
+        <option value="">{ui.todasCulturas}</option>
+        {lista.map((c) => <option value={c.slug} selected={c.slug === culturaFixa}>{c.nome}</option>)}
+      </select>
+      <Icone nome="seta-baixo" class="seta" />
+    </div>
+  </div>
+  <div class="campo">
+    <label for={`b-hp-${modo}`} class="rotulo text-tinta-2">{ui.trator}</label>
+    <div class="select">
+      <select id={`b-hp-${modo}`} name="hp" class="num">
+        <option value="">{ui.qualquerTrator}</option>
+        {POTENCIAS.map((hp, i) => <option value={hp}>{i === POTENCIAS.length - 1 ? ui.mais(hp) : ui.ate(hp)}</option>)}
+      </select>
+      <Icone nome="seta-baixo" class="seta" />
+    </div>
+  </div>
+  <fieldset class="campo">
+    <legend class="rotulo text-tinta-2">{ui.engate}</legend>
+    <div class="segmentos">
+      <label><input type="radio" name="engate" value="" checked /><span>{ui.todos}</span></label>
+      <label><input type="radio" name="engate" value="3pontos" /><span>{ENGATE['3pontos'][lang]}</span></label>
+      <label><input type="radio" name="engate" value="arrasto" /><span>{ENGATE.arrasto[lang]}</span></label>
+    </div>
+  </fieldset>
+  {
+    modo === 'ir' ? (
+      <button type="submit" class="btn btn-sinal enviar num">
+        <span data-busca-total>{ui.ver(dados.length)}</span>
+        <Icone nome="seta" />
+      </button>
+    ) : (
+      <p class="contagem titulo num" aria-live="polite" data-busca-total>
+        {ui.resultado(dados.length)}
+      </p>
+    )
+  }
+</form>
+
+<style>
+  .busca {
+    display: grid;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+  .campo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.25rem;
+    padding: 0.9rem 1.1rem;
+    border-bottom: 1px solid var(--color-papel-2);
+    min-width: 0;
+    margin: 0;
+  }
+  fieldset.campo {
+    border-inline: 0;
+    border-top: 0;
+  }
+  .select {
+    position: relative;
+  }
+  select {
+    width: 100%;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 0.15rem 2rem 0.15rem 0;
+    font: inherit;
+    font-stretch: 78%;
+    font-weight: 800;
+    font-size: 1.5rem;
+    line-height: 1.2;
+    color: var(--color-tinta);
+    cursor: pointer;
+    min-height: 44px;
+  }
+  select:disabled {
+    cursor: default;
+    opacity: 1;
+  }
+  select:focus-visible {
+    outline-offset: 6px;
+  }
+  .select :global(.seta) {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 1.25rem;
+    height: 1.25rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--color-tinta-2);
+  }
+  legend {
+    padding: 0;
+    margin-bottom: 0.4rem;
+    float: left;
+    width: 100%;
+  }
+  .segmentos {
+    clear: both;
+    display: flex;
+    border: 1.5px solid var(--color-tinta);
+  }
+  .segmentos label {
+    flex: 1;
+    position: relative;
+  }
+  .segmentos input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    cursor: pointer;
+  }
+  .segmentos span {
+    display: grid;
+    place-items: center;
+    min-height: 40px;
+    padding: 0 0.6rem;
+    font-stretch: 80%;
+    font-weight: 750;
+    font-size: 0.9375rem;
+    white-space: nowrap;
+    transition:
+      background-color 140ms var(--ease-out),
+      color 140ms var(--ease-out);
+  }
+  .segmentos label + label span {
+    border-left: 1.5px solid var(--color-tinta);
+  }
+  .segmentos input:checked + span {
+    background: var(--color-tinta);
+    color: var(--color-papel);
+  }
+  .segmentos input:focus-visible + span {
+    outline: 3px solid var(--color-sinal-vivo);
+    outline-offset: 2px;
+  }
+  .enviar {
+    min-height: 64px;
+    font-size: 1.25rem;
+  }
+  .contagem {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.1rem;
+    font-size: 1.75rem;
+    color: var(--color-marinho);
+  }
+  @media (min-width: 900px) {
+    .busca {
+      grid-template-columns: 1.25fr 1fr 1.15fr auto;
+    }
+    .campo {
+      border-bottom: 0;
+      border-right: 1px solid var(--color-papel-2);
+      padding: 1rem 1.4rem;
+    }
+    .enviar {
+      min-height: 100%;
+      padding-inline: 2.2rem;
+    }
+  }
+</style>
+
+<script>
+  type Item = { s: string; hp: number | null; e: string | null; c: string[] };
+  for (const form of document.querySelectorAll<HTMLFormElement>('form[data-busca]')) {
+    const dados: Item[] = JSON.parse(form.dataset.dados!);
+    const textos = JSON.parse(form.dataset.textos!);
+    const modo = form.dataset.busca;
+    const total = form.querySelector<HTMLElement>('[data-busca-total]')!;
+    const params = new URLSearchParams(location.search);
+
+    // Restaura filtros vindos da URL (ex.: botão da home).
+    for (const nome of ['cultura', 'hp', 'engate']) {
+      const v = params.get(nome);
+      if (v === null) continue;
+      const campo = form.elements.namedItem(nome);
+      if (campo instanceof HTMLSelectElement && !campo.disabled) campo.value = v;
+      if (campo instanceof RadioNodeList) campo.value = v;
+    }
+
+    const ler = () => {
+      const fd = new FormData(form);
+      const cultura = (form.elements.namedItem('cultura') as HTMLSelectElement).value;
+      return { cultura, hp: Number(fd.get('hp')) || 0, engate: String(fd.get('engate') || '') };
+    };
+
+    const aplicar = (atualizarUrl: boolean) => {
+      const f = ler();
+      const ok = new Set(
+        dados
+          .filter((m) => !f.cultura || m.c.includes(f.cultura))
+          .filter((m) => !f.hp || m.hp === null || m.hp <= f.hp || f.hp === 75)
+          .filter((m) => !f.engate || m.e === f.engate)
+          .map((m) => m.s),
+      );
+      const n = ok.size;
+      if (modo === 'ir') {
+        total.textContent = n === 0 ? textos.nenhuma : n === 1 ? textos.ver[1] : textos.ver[2].replace(/\d+/, String(n));
+        form.querySelector('button')!.toggleAttribute('disabled', n === 0);
+      } else {
+        total.textContent = n === 0 ? textos.nenhuma : n === 1 ? textos.resultado[0] : textos.resultado[1].replace(/\d+/, String(n));
+        document.querySelectorAll<HTMLElement>('[data-maquina]').forEach((el) => {
+          el.hidden = !ok.has(el.dataset.maquina!);
+        });
+        document.querySelectorAll<HTMLElement>('[data-grupo]').forEach((g) => {
+          g.hidden = !g.querySelector('[data-maquina]:not([hidden])');
+        });
+        const vazio = document.querySelector<HTMLElement>('[data-vazio]');
+        if (vazio) vazio.hidden = n !== 0;
+        if (atualizarUrl) {
+          const q = new URLSearchParams();
+          if (f.cultura && !(form.elements.namedItem('cultura') as HTMLSelectElement).disabled) q.set('cultura', f.cultura);
+          if (f.hp) q.set('hp', String(f.hp));
+          if (f.engate) q.set('engate', f.engate);
+          history.replaceState(null, '', q.size ? `?${q}` : location.pathname);
+        }
+      }
+    };
+
+    form.addEventListener('change', () => aplicar(true));
+    if (modo === 'filtrar') form.addEventListener('submit', (e) => e.preventDefault());
+    form.addEventListener('submit', (e) => {
+      if (modo !== 'ir') return;
+      // Não manda campos vazios na URL.
+      e.preventDefault();
+      const f = ler();
+      const q = new URLSearchParams();
+      if (f.cultura) q.set('cultura', f.cultura);
+      if (f.hp) q.set('hp', String(f.hp));
+      if (f.engate) q.set('engate', f.engate);
+      location.href = form.action + (q.size ? `?${q}` : '');
+    });
+    document.querySelector('[data-limpar]')?.addEventListener('click', () => {
+      form.reset();
+      aplicar(true);
+    });
+    aplicar(false);
+  }
+</script>

@@ -1,0 +1,74 @@
+---
+import { FAMILIAS, NOME_FAMILIA, secao, t, url, type Lang } from '../lib/i18n';
+import { CONTATO } from '../data/empresa';
+import { porFamilia, slugMaquina } from '../lib/dados';
+import logo from '../assets/marca/sc-horizontal-claro.svg';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const ui = t(lang);
+const ano = new Date().getFullYear();
+---
+
+<footer class="rodape border-t regra bg-palco-2 pb-24 sm:pb-0">
+  <div class="wrap grid gap-12 py-16 md:grid-cols-12">
+    <div class="md:col-span-4">
+      <a href={url(lang)} aria-label="SC Máquinas e Implementos Agrícolas"><img src={logo.src} alt="" width="183" height="50" class="h-12 w-auto" /></a>
+      <p class="mt-5 max-w-[34ch] text-nevoa">{ui.rodape}</p>
+      <ul class="mt-6 flex gap-5">
+        {
+          CONTATO.redes.map((r) => (
+            <li>
+              <a href={r.url} rel="noopener" target="_blank" class="font-semibold">
+                {r.nome}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <nav class="md:col-span-5" aria-label={ui.nav.maquinas}>
+      <p class="rotulo text-nevoa"><a href={secao(lang, 'maquinas')} class="no-underline hover:underline">{ui.nav.maquinas}</a></p>
+      <ul class="mt-4 grid grid-cols-2 gap-x-8 gap-y-5 text-[0.9375rem]">
+        {
+          FAMILIAS.map((f) => (
+            <li>
+              <span class="font-bold">{NOME_FAMILIA[f][lang]}</span>
+              <ul class="num mt-1 flex flex-wrap gap-x-3 text-nevoa">
+                {porFamilia(f).map((m) => (
+                  <li>
+                    <a href={secao(lang, 'maquinas', slugMaquina(m))} class="hover:text-papel">
+                      {m.codigo}
+                      {m.volts ? ` ${m.volts.replace(' Volts', 'V')}` : ''}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="md:col-span-3">
+      <p class="rotulo text-nevoa">{ui.nav.contato}</p>
+      <ul class="num mt-4 space-y-1">
+        {
+          CONTATO.telefones.map((tel) => (
+            <li>
+              <a href={`tel:${tel.link}`} class="font-semibold">
+                {tel.numero}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="mt-3"><a href={`mailto:${CONTATO.emails.vendas}`}>{CONTATO.emails.vendas}</a></p>
+      <p class="mt-3 text-nevoa">{CONTATO.endereco}</p>
+    </div>
+  </div>
+  <div class="wrap flex flex-wrap justify-between gap-4 border-t regra py-6 text-sm text-nevoa">
+    <p>© {ano} SC Máquinas e Implementos Agrícolas. {ui.direitos}</p>
+  </div>
+</footer>

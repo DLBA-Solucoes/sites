@@ -1,0 +1,247 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url('../assets/fonts/archivo-latin-standard-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  src: url('../assets/fonts/archivo-latin-ext-standard-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme {
+  --font-sans: 'Archivo', ui-sans-serif, system-ui, sans-serif;
+  --color-palco: #111315;
+  --color-palco-2: #181b1e;
+  --color-aco: #2a2e33;
+  --color-aco-2: #3b4046;
+  --color-nevoa: #a3a9af;
+  --color-papel: #f4f4f1;
+  --color-papel-2: #e7e7e1;
+  --color-tinta: #111315;
+  --color-tinta-2: #4a4f55;
+  --color-marinho: #1c3154;
+  --color-sinal: #d41920;
+  --color-sinal-vivo: #ed1c24;
+}
+
+@layer base {
+:root {
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1440px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --header-h: 64px;
+  color-scheme: dark;
+  scrollbar-color: var(--color-aco-2) var(--color-palco);
+}
+
+html {
+  background: var(--color-palco);
+  color: var(--color-papel);
+  font-family: var(--font-sans);
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+body {
+  min-height: 100dvh;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  font-stretch: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+::selection {
+  background: var(--color-sinal);
+  color: #fff;
+}
+:focus-visible {
+  outline: 3px solid var(--color-sinal-vivo);
+  outline-offset: 3px;
+}
+a {
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+}
+
+@layer components {
+/* ---------- Tipografia do catálogo ---------- */
+.display {
+  font-stretch: 64%;
+  font-weight: 850;
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.titulo {
+  font-stretch: 72%;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+.rotulo {
+  font-stretch: 88%;
+  font-weight: 650;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.lead {
+  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.3125rem);
+  line-height: 1.5;
+  max-width: 58ch;
+  text-wrap: pretty;
+}
+.prosa {
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+.prosa p + p {
+  margin-top: 1em;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* ---------- Botões ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  min-height: 52px;
+  padding: 0 1.4em;
+  font-stretch: 78%;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  transition:
+    background-color 160ms var(--ease-out),
+    color 160ms var(--ease-out),
+    transform 120ms var(--ease-out);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn-sinal {
+  background: var(--color-sinal);
+  color: #fff;
+}
+.btn-sinal:hover {
+  background: #b5141a;
+}
+.btn-linha {
+  background: transparent;
+  color: currentColor;
+  box-shadow: inset 0 0 0 1.5px currentColor;
+}
+.btn-linha:hover {
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+.btn svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex: none;
+}
+
+/* ---------- Papel (ficha impressa) ---------- */
+.papel {
+  background: var(--color-papel);
+  color: var(--color-tinta);
+  color-scheme: light;
+}
+.papel ::selection {
+  background: var(--color-marinho);
+  color: #fff;
+}
+
+/* ---------- Regras de aço ---------- */
+.regra {
+  border-color: var(--color-aco);
+}
+
+}
+
+/* ---------- Movimento: um relógio só, na entrada da página ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .entra {
+    animation: entra 900ms var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 90ms + 80ms);
+  }
+  .entra-maquina {
+    animation: entra-maquina 1300ms var(--ease-out) both;
+    animation-delay: 120ms;
+  }
+  .entra-codigo {
+    animation: entra-codigo 1400ms var(--ease-out) both;
+  }
+  .entra-ponto {
+    animation: entra-ponto 600ms var(--ease-out) both;
+    animation-delay: calc(900ms + var(--i, 0) * 140ms);
+  }
+}
+@keyframes entra {
+  from {
+    opacity: 0.001;
+    transform: translateY(18px);
+  }
+}
+@keyframes entra-maquina {
+  from {
+    opacity: 0.001;
+    transform: translateX(6%) scale(0.97);
+    filter: blur(10px) brightness(0.4);
+  }
+}
+@keyframes entra-codigo {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes entra-ponto {
+  from {
+    opacity: 0.001;
+    transform: scale(0.6);
+  }
+}

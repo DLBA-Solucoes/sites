@@ -1,0 +1,183 @@
+---
+// Índice do catálogo: famílias e modelos numerados (Nº 01 a 18), em linhas como no catálogo impresso.
+import { Image } from 'astro:assets';
+import { DESC_FAMILIA, ENGATE, FAMILIAS, NOME_FAMILIA, secao, t, type Familia, type Lang } from '../lib/i18n';
+import { NUMERO, destaquesFicha, img, nomeMaquina, palco, porFamilia, slugMaquina, type Maquina } from '../lib/dados';
+import Icone from './Icone.astro';
+
+interface Props {
+  lang: Lang;
+  maquinas?: Maquina[];
+  familias?: readonly Familia[];
+  titulos?: 'h2' | 'h3';
+}
+const { lang, maquinas, familias = FAMILIAS, titulos = 'h2' } = Astro.props;
+const ui = t(lang);
+const T = titulos;
+const grupos = familias
+  .map((f) => ({ f, itens: porFamilia(f).filter((m) => !maquinas || maquinas.includes(m)) }))
+  .filter((g) => g.itens.length);
+---
+
+<div class="indice">
+  {
+    grupos.map(({ f, itens }) => (
+      <section class="grupo" data-grupo={f} aria-labelledby={`fam-${f}`}>
+        <header class="grupo-cab">
+          <T id={`fam-${f}`} class="titulo text-[clamp(1.75rem,1.2rem+2vw,2.75rem)]">
+            {NOME_FAMILIA[f][lang]}
+          </T>
+          <p class="text-nevoa">{DESC_FAMILIA[f][lang]}</p>
+        </header>
+        <ol class="linhas">
+          {itens.map((m) => {
+            const d = destaquesFicha(m);
+            const i18n = m.i18n[lang];
+            return (
+              <li data-maquina={slugMaquina(m)}>
+                <a href={secao(lang, 'maquinas', slugMaquina(m))} class="linha">
+                  <span class="n num rotulo">Nº {NUMERO.get(m.chave)}</span>
+                  <span class="foto">
+                    <Image src={img(palco(m).arquivo)} alt="" widths={[200, 400]} sizes="(min-width: 768px) 200px, 120px" loading="lazy" />
+                  </span>
+                  <span class="cod titulo num">{m.codigo}</span>
+                  <span class="nome">
+                    <span class="font-bold">{nomeMaquina(m, lang)}</span>
+                    <span class="block text-nevoa">{i18n.modelo}</span>
+                  </span>
+                  <span class="ficha num">
+                    {m.hp ? (
+                      <span>
+                        <b>{m.hp}</b> HP{m.engate && ` · ${ENGATE[m.engate][lang]}`}
+                      </span>
+                    ) : (
+                      <span>{ui.semTrator}</span>
+                    )}
+                    {d.tanque && <span class="text-nevoa">{d.tanque}</span>}
+                    {d.alcance && <span class="text-nevoa">{d.alcance}</span>}
+                  </span>
+                  <Icone nome="seta" class="seta" />
+                </a>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+    ))
+  }
+</div>
+
+<style>
+  .grupo + .grupo {
+    margin-top: clamp(3rem, 6vw, 5rem);
+  }
+  .grupo-cab {
+    display: grid;
+    gap: 0.5rem 3rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 2px solid var(--color-papel);
+  }
+  .grupo-cab p {
+    max-width: 52ch;
+  }
+  @media (min-width: 900px) {
+    .grupo-cab {
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+    }
+  }
+  .linhas li {
+    border-bottom: 1px solid var(--color-aco);
+  }
+  .linha {
+    display: grid;
+    grid-template-columns: 96px 1fr auto;
+    grid-template-areas:
+      'foto cod seta'
+      'foto nome seta'
+      'foto ficha seta';
+    column-gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+    text-decoration: none;
+    position: relative;
+  }
+  .n {
+    display: none;
+    grid-area: n;
+    color: var(--color-nevoa);
+  }
+  .foto {
+    grid-area: foto;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+  }
+  .foto {
+    overflow: hidden;
+  }
+  .foto :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 500ms var(--ease-out);
+  }
+  .cod {
+    grid-area: cod;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 3rem);
+    line-height: 1;
+  }
+  .nome {
+    grid-area: nome;
+    font-size: 0.9375rem;
+    line-height: 1.35;
+  }
+  .ficha {
+    grid-area: ficha;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.2rem 1rem;
+    font-size: 0.9375rem;
+    margin-top: 0.35rem;
+  }
+  .linha :global(.seta) {
+    grid-area: seta;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-nevoa);
+    transition:
+      transform 300ms var(--ease-out),
+      color 200ms;
+  }
+  @media (hover: hover) {
+    .linha:hover :global(.seta) {
+      transform: translateX(4px);
+      color: var(--color-sinal-vivo);
+    }
+    .linha:hover .foto :global(img) {
+      transform: scale(1.06);
+    }
+    .linha:hover .cod {
+      color: #fff;
+    }
+  }
+  @media (min-width: 768px) {
+    .linha {
+      grid-template-columns: 4.5rem 9rem minmax(9rem, 13rem) 1fr minmax(12rem, 16rem) 2rem;
+      grid-template-areas: 'n foto cod nome ficha seta';
+      column-gap: 1.5rem;
+      padding: 0.75rem 0;
+    }
+    .n {
+      display: block;
+    }
+    .foto {
+      height: 7.5rem;
+      aspect-ratio: auto;
+    }
+    .ficha {
+      flex-direction: column;
+      margin-top: 0;
+    }
+  }
+</style>

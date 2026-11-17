@@ -1,0 +1,20 @@
+---
+interface Props {
+  titulo: string;
+  lead?: string;
+}
+const { titulo, lead } = Astro.props;
+---
+
+<header class="wrap cab-pagina">
+  <h1 class="display entra text-[clamp(3rem,1.6rem+6vw,6rem)]" style="--i:0">{titulo}</h1>
+  {lead && <p class="lead entra mt-5 text-nevoa" style="--i:1">{lead}</p>}
+  <slot />
+</header>
+
+<style>
+  .cab-pagina {
+    padding-top: clamp(2.5rem, 6vw, 5rem);
+    padding-bottom: clamp(2rem, 4vw, 3rem);
+  }
+</style>

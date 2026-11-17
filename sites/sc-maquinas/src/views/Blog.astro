@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import CabecalhoPagina from '../components/CabecalhoPagina.astro';
+import Icone from '../components/Icone.astro';
+import { HTML_LANG, t, url, type Lang } from '../lib/i18n';
+import { POSTS, img } from '../lib/dados';
+
+interface Props {
+  lang: Lang;
+  alternativas: Partial<Record<Lang, string>>;
+}
+const { lang, alternativas } = Astro.props;
+const ui = t(lang);
+const data = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString(HTML_LANG[lang], { day: '2-digit', month: 'long', year: 'numeric' });
+---
+
+<Base lang={lang} titulo={ui.blogTitulo} descricao={ui.blogLead} alternativas={alternativas} secaoAtiva="blog">
+  <CabecalhoPagina titulo={ui.blogTitulo} lead={ui.blogLead} />
+  <section class="wrap pb-[clamp(4rem,8vw,7rem)]">
+    <ol class="posts">
+      {
+        POSTS.map((p, i) => (
+          <li>
+            <a href={url('pt', 'blog', p.slug)} class="post" lang="pt-BR">
+              {p.capa && (
+                <span class:list={['capa', p.capa.fundo === 'transparente' && 'recorte']}>
+                  <Image src={img(p.capa.arquivo)} alt="" widths={[480, 800]} sizes="(min-width: 900px) 40vw, 100vw" loading={i < 2 ? 'eager' : 'lazy'} />
+                </span>
+              )}
+              <span class="corpo">
+                <time datetime={p.data} class="rotulo num text-nevoa">
+                  {data(p.data)}
+                </time>
+                <span class="titulo mt-3 block text-[clamp(1.6rem,1.2rem+1.4vw,2.4rem)]">{p.titulo}</span>
+                <span class="mt-3 block text-nevoa">{p.resumo}</span>
+                <span class="mt-5 inline-flex items-center gap-2 font-bold">
+                  {ui.lerMais}
+                  <Icone nome="seta" class="size-5 text-sinal-vivo" />
+                </span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</Base>
+
+<style>
+  .posts {
+    border-top: 2px solid var(--color-papel);
+  }
+  .posts li {
+    border-bottom: 1px solid var(--color-aco);
+  }
+  .post {
+    display: grid;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    text-decoration: none;
+  }
+  .capa {
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--color-palco-2);
+  }
+  .capa :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 600ms var(--ease-out);
+  }
+  .capa.recorte :global(img) {
+    object-fit: contain;
+    padding: 6%;
+  }
+  .corpo {
+    max-width: 60ch;
+  }
+  @media (hover: hover) {
+    .post:hover :global(img) {
+      transform: scale(1.03);
+    }
+    .post:hover .titulo {
+      color: #fff;
+    }
+  }
+  @media (min-width: 900px) {
+    .post {
+      grid-template-columns: 5fr 7fr;
+      gap: 3rem;
+      align-items: center;
+    }
+  }
+</style>

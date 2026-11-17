@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "sc-maquinas",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "preview", "-w", "sc-maquinas", "--", "--port", "4321"],
+      "port": 4321
+    }
+  ]
+}

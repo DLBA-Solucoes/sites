@@ -1,0 +1,66 @@
+---
+import '../styles/global.css';
+import Cabecalho from '../components/Cabecalho.astro';
+import Rodape from '../components/Rodape.astro';
+import BarraContato from '../components/BarraContato.astro';
+import { HTML_LANG, LANGS, PREFIXO, t, type Lang } from '../lib/i18n';
+import ogPadrao from '../assets/campo/fumo-canhao.webp';
+import { getImage } from 'astro:assets';
+import fonte from '../assets/fonts/archivo-latin-standard-normal.woff2?url';
+
+interface Props {
+  lang: Lang;
+  titulo: string;
+  descricao: string;
+  alternativas: Partial<Record<Lang, string>>;
+  ogImagem?: ImageMetadata;
+  secaoAtiva?: string;
+}
+const { lang, titulo, descricao, alternativas, ogImagem, secaoAtiva } = Astro.props;
+const ui = t(lang);
+const site = Astro.site!;
+const canonica = new URL(Astro.url.pathname, site).href;
+const og = await getImage({ src: ogImagem ?? ogPadrao, width: 1200, height: 630, fit: 'cover', format: 'jpeg' });
+const tituloCompleto = titulo.includes('SC Máquinas') ? titulo : `${titulo} | SC Máquinas`;
+---
+
+<!doctype html>
+<html lang={HTML_LANG[lang]}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonica} />
+    {
+      LANGS.filter((l) => alternativas[l]).map((l) => (
+        <link rel="alternate" hreflang={HTML_LANG[l]} href={new URL(alternativas[l]!, site).href} />
+      ))
+    }
+    {alternativas.pt && <link rel="alternate" hreflang="x-default" href={new URL(alternativas.pt, site).href} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SC Máquinas e Implementos Agrícolas" />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={canonica} />
+    <meta property="og:image" content={new URL(og.src, site).href} />
+    <meta property="og:locale" content={HTML_LANG[lang].replace('-', '_')} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#111315" />
+    <link rel="icon" href={`${PREFIXO}/favicon.png`} type="image/png" />
+    {import.meta.env.PUBLIC_NOINDEX === '1' && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="preload" href={fonte} as="font" type="font/woff2" crossorigin />
+    <slot name="head" />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a href="#conteudo" class="sr-only z-50 bg-sinal px-4 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2">
+      {ui.pular}
+    </a>
+    <Cabecalho lang={lang} alternativas={alternativas} secaoAtiva={secaoAtiva} />
+    <main id="conteudo" class="flex-1">
+      <slot />
+    </main>
+    <Rodape lang={lang} />
+    <BarraContato lang={lang} />
+  </body>
+</html>

@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import BlocoContato from '../components/BlocoContato.astro';
+import { t, type Lang } from '../lib/i18n';
+import { foto, img } from '../lib/dados';
+
+interface Props {
+  lang: Lang;
+  alternativas: Partial<Record<Lang, string>>;
+}
+const { lang, alternativas } = Astro.props;
+const ui = t(lang);
+const f = foto('cafe-encosta');
+---
+
+<Base lang={lang} titulo={ui.contatoTitulo} descricao={ui.contatoLead} alternativas={alternativas} secaoAtiva="contato">
+  <BlocoContato lang={lang} nivel="h1" />
+  <Image src={img(f.arquivo)} alt="" widths={[800, 1400, 2000]} sizes="100vw" class="faixa-foto" loading="lazy" />
+</Base>
+
+<style>
+  :global(.faixa-foto) {
+    width: 100%;
+    height: clamp(260px, 42vw, 560px);
+    object-fit: cover;
+  }
+</style>

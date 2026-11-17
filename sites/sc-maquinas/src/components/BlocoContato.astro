@@ -1,0 +1,117 @@
+---
+import { t, type Lang } from '../lib/i18n';
+import { CONTATO } from '../data/empresa';
+import Icone from './Icone.astro';
+
+interface Props {
+  lang: Lang;
+  titulo?: string;
+  assunto?: string;
+  nivel?: 'h1' | 'h2';
+}
+const { lang, titulo, assunto, nivel = 'h2' } = Astro.props;
+const ui = t(lang);
+const H = nivel;
+const tel = CONTATO.telefones.find((x) => x.principal)!;
+const emailPrincipal = lang === 'pt' ? CONTATO.emails.vendas : CONTATO.emails.exportacao;
+const mailto = (e: string) => `mailto:${e}${assunto ? `?subject=${encodeURIComponent(assunto)}` : ''}`;
+const deptos = [
+  { rotulo: ui.vendas, email: CONTATO.emails.vendas },
+  { rotulo: ui.exportacao, email: CONTATO.emails.exportacao },
+  { rotulo: ui.compras, email: CONTATO.emails.compras },
+  { rotulo: ui.rh, email: CONTATO.emails.rh },
+];
+---
+
+<section class="contato" aria-labelledby="contato-titulo">
+  <div class="wrap grid gap-12 py-[clamp(4rem,9vw,7rem)] lg:grid-cols-12">
+    <div class="lg:col-span-6">
+      <H id="contato-titulo" class="display text-[clamp(2.75rem,1.6rem+5vw,6rem)]">{titulo ?? ui.contatoTitulo}</H>
+      <p class="lead mt-6 text-nevoa">{ui.contatoLead}</p>
+      <div class="mt-10 flex flex-wrap gap-3">
+        {
+          CONTATO.whatsapp && (
+            <a href={`https://wa.me/${CONTATO.whatsapp}`} class="btn btn-sinal">
+              <Icone nome="whatsapp" />
+              {ui.whatsapp}
+            </a>
+          )
+        }
+        <a href={`tel:${tel.link}`} class:list={['btn num', CONTATO.whatsapp ? 'btn-linha' : 'btn-sinal']}>
+          <Icone nome="telefone" />
+          {tel.numero}
+        </a>
+        <a href={mailto(emailPrincipal)} class="btn btn-linha">
+          <Icone nome="email" />
+          {ui.email}
+        </a>
+      </div>
+    </div>
+    <dl class="deptos lg:col-span-5 lg:col-start-8">
+      <div>
+        <dt class="rotulo text-nevoa">{ui.telefones}</dt>
+        <dd class="num">
+          {
+            CONTATO.telefones.map((x) => (
+              <a href={`tel:${x.link}`} class="block">
+                {x.numero}
+              </a>
+            ))
+          }
+        </dd>
+      </div>
+      {
+        deptos.map((d) => (
+          <div>
+            <dt class="rotulo text-nevoa">{d.rotulo}</dt>
+            <dd>
+              <a href={mailto(d.email)}>{d.email}</a>
+            </dd>
+          </div>
+        ))
+      }
+      <div>
+        <dt class="rotulo text-nevoa">{ui.endereco}</dt>
+        <dd>
+          {CONTATO.endereco}
+          <a href={CONTATO.mapa} target="_blank" rel="noopener" class="mt-1 flex items-center gap-1.5 font-semibold">
+            <Icone nome="mapa" class="size-4 text-sinal-vivo" />
+            {ui.comoChegar}
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<style>
+  .deptos > div {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-aco);
+  }
+  .deptos > div:first-child {
+    border-top: 1px solid var(--color-aco);
+  }
+  .deptos dt {
+    padding-top: 0.2rem;
+  }
+  .deptos dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .deptos a {
+    text-decoration: none;
+  }
+  .deptos a:hover {
+    text-decoration: underline;
+  }
+  @media (max-width: 480px) {
+    .deptos > div {
+      grid-template-columns: 1fr;
+      gap: 0.25rem;
+    }
+  }
+</style>

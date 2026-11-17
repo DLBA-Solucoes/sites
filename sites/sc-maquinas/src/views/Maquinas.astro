@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import Busca from '../components/Busca.astro';
+import CabecalhoPagina from '../components/CabecalhoPagina.astro';
+import IndiceCatalogo from '../components/IndiceCatalogo.astro';
+import BlocoContato from '../components/BlocoContato.astro';
+import { t, type Lang } from '../lib/i18n';
+import type { Cultura } from '../lib/dados';
+
+interface Props {
+  lang: Lang;
+  alternativas: Partial<Record<Lang, string>>;
+  cultura?: Cultura;
+}
+const { lang, alternativas, cultura } = Astro.props;
+const ui = t(lang);
+const titulo = cultura ? ui.maquinasPara(cultura.nome) : ui.maquinasTitulo;
+const lead = cultura ? ui.culturasLead : ui.maquinasLead;
+---
+
+<Base lang={lang} titulo={titulo} descricao={lead} alternativas={alternativas} secaoAtiva={cultura ? 'culturas' : 'maquinas'}>
+  <CabecalhoPagina titulo={titulo} lead={cultura ? undefined : lead} />
+  <div class="filtro">
+    <div class="wrap">
+      <Busca lang={lang} modo="filtrar" culturaFixa={cultura?.slug} />
+    </div>
+  </div>
+  <section class="wrap py-[clamp(3rem,6vw,5rem)]" aria-label={ui.catalogo}>
+    <IndiceCatalogo lang={lang} maquinas={cultura?.maquinas} />
+    <div class="vazio" data-vazio hidden>
+      <p class="titulo text-3xl">{ui.busca.nenhuma}</p>
+      <button type="button" class="btn btn-linha mt-6" data-limpar>{ui.busca.limpar}</button>
+    </div>
+  </section>
+  <div class="border-t regra"><BlocoContato lang={lang} /></div>
+</Base>
+
+<style>
+  .filtro {
+    position: sticky;
+    top: var(--header-h);
+    z-index: 20;
+    padding-block: 0.75rem;
+    background: color-mix(in srgb, var(--color-palco) 92%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--color-aco);
+  }
+  @media (max-width: 899px) {
+    .filtro {
+      position: static;
+    }
+  }
+  .vazio {
+    padding: 4rem 0;
+    text-align: center;
+  }
+</style>

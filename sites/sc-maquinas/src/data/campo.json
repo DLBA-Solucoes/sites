@@ -1,0 +1,116 @@
+[
+  {
+    "id": "fumo-canhao",
+    "arquivo": "assets/campo/fumo-canhao.webp",
+    "origem": "2024_06_WhatsApp-Image-2023-11-20-at-18.16.45.jpeg",
+    "cultura": {
+      "pt": "Fumo",
+      "en": "Tobacco",
+      "es": "Tabaco"
+    },
+    "familia": "canhao",
+    "largura": 1600,
+    "altura": 1200
+  },
+  {
+    "id": "cafe-canhao",
+    "arquivo": "assets/campo/cafe-canhao.webp",
+    "origem": "2024_06_WhatsApp-Image-2024-04-04-at-11.33.32-AM-1.jpeg",
+    "cultura": {
+      "pt": "Café",
+      "en": "Coffee",
+      "es": "Café"
+    },
+    "familia": "canhao",
+    "largura": 1600,
+    "altura": 1200
+  },
+  {
+    "id": "cafe-encosta",
+    "arquivo": "assets/campo/cafe-encosta.webp",
+    "origem": "2024_06_WhatsApp-Image-2024-05-20-at-11.06.19.jpeg",
+    "cultura": {
+      "pt": "Café",
+      "en": "Coffee",
+      "es": "Café"
+    },
+    "familia": "canhao",
+    "largura": 1600,
+    "altura": 900
+  },
+  {
+    "id": "parreira-atomizador",
+    "arquivo": "assets/campo/parreira-atomizador.webp",
+    "origem": "2024_06_IMG_20240215_104154.jpg",
+    "cultura": {
+      "pt": "Parreiral",
+      "en": "Vineyard",
+      "es": "Viñedo"
+    },
+    "familia": "atomizador",
+    "largura": 12000,
+    "altura": 9000
+  },
+  {
+    "id": "banana-canhao",
+    "arquivo": "assets/campo/banana-canhao.webp",
+    "origem": "2024_06_IMG_20230623_101219-scaled.jpg",
+    "cultura": {
+      "pt": "Banana",
+      "en": "Banana",
+      "es": "Banano"
+    },
+    "familia": "canhao",
+    "largura": 1920,
+    "altura": 2560
+  },
+  {
+    "id": "canhao-trator",
+    "arquivo": "assets/campo/canhao-trator.webp",
+    "origem": "2024_06_Grupo-de-mascara-45.jpg",
+    "cultura": null,
+    "familia": "canhao",
+    "largura": 1920,
+    "altura": 770
+  },
+  {
+    "id": "transportador-fabrica",
+    "arquivo": "assets/campo/transportador-fabrica.webp",
+    "origem": "2025_06_WhatsApp-Image-2025-03-26-at-14.56.59-1.jpeg",
+    "cultura": null,
+    "familia": "canhao",
+    "largura": 1280,
+    "altura": 960
+  },
+  {
+    "id": "cafe-atomizador",
+    "arquivo": "assets/campo/cafe-atomizador.webp",
+    "origem": "2024_06_IMG_20240418_112809.jpg",
+    "cultura": {
+      "pt": "Café",
+      "en": "Coffee",
+      "es": "Café"
+    },
+    "familia": "atomizador",
+    "largura": 9000,
+    "altura": 12000
+  },
+  {
+    "id": "atomizador-trator",
+    "arquivo": "assets/campo/atomizador-trator.webp",
+    "origem": "2024_05_IMG_6847-1-scaled.jpg",
+    "cultura": null,
+    "familia": "atomizador",
+    "largura": 2560,
+    "altura": 1920
+  },
+  {
+    "id": "adubadeira-trator",
+    "arquivo": "assets/campo/adubadeira-trator.webp",
+    "origem": "2024_03_WhatsApp-Image-2025-04-08-at-12.15.58-1.jpeg",
+    "cultura": null,
+    "familia": "distribuidor",
+    "largura": 1600,
+    "altura": 1200
+  }
+]
