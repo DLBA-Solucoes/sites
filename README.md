@@ -25,6 +25,11 @@ sites/sc-maquinas/
 
 Para atualizar o conteúdo a partir do site antigo: `npm run conteudo -w sc-maquinas`.
 
+## Cliente novo
+
+Siga [docs/PROCESSO.md](docs/PROCESSO.md). Moldes e status dos clientes em [docs/MOLDES.md](docs/MOLDES.md).
+Prévias publicadas em https://dlba-solucoes.github.io/sites/ (cada pasta de `sites/` vira `/sites/<pasta>/`).
+
 ## Antes / depois
 
 Imagens prontas para a apresentação ao cliente em `apresentacao/<cliente>/`.
