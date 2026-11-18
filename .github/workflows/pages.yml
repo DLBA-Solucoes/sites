@@ -28,7 +28,7 @@ jobs:
         run: npm run build -w sc-maquinas
         env:
           SITE_URL: https://dlba-solucoes.github.io
-          BASE_PATH: /sites-cdl/sc-maquinas
+          BASE_PATH: /sites/sc-maquinas
           PUBLIC_NOINDEX: '1'
       - name: Montar o site
         run: |
