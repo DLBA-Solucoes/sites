@@ -1,0 +1,114 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../../layouts/Base.astro';
+import CorteLaje from '../../components/CorteLaje.astro';
+import Vendas from '../../components/Vendas.astro';
+import Icone from '../../components/Icone.astro';
+import { foto, url } from '../../lib/site';
+import { LAJES } from '../../data/conteudo';
+
+const oQue = [
+  'As lajes pré-fabricadas são feitas de vigotas de concreto e blocos de enchimento (lajota cerâmica ou EPS), montados de forma intercalada e unidos por uma capa de concreto lançada por cima.',
+  'As lajes comuns vencem vãos de até 5 m entre os apoios. Com vigota treliçada, de vergalhões soldados formando uma treliça, a laje pode vencer até 12 m.',
+  'A montagem é rápida e fácil, mas o fabricante deve fornecer o projeto completo da laje, com as instruções de montagem e a espessura da capa. A Arte Laje entrega isso junto com a laje.',
+];
+const vantagens = [
+  'Menor peso próprio, aliviando as fundações',
+  'Dispensam fôrmas: vigotas e enchimento fazem esse papel',
+  'Bem menos escoramento',
+  'Estrutura pronta mais rápido',
+  'Menos mão de obra na execução',
+];
+---
+
+<Base titulo="Lajes pré-fabricadas" descricao="O que é a laje pré-fabricada e qual escolher: treliçada, mini painel ou convencional." ativo="lajes">
+  <header class="wrap pt-[clamp(2.5rem,6vw,5rem)] pb-10">
+    <h1 class="h-display entra max-w-[14ch] text-[clamp(3rem,1.8rem+5vw,5.5rem)]">Qual laje vai na sua obra</h1>
+  </header>
+
+  <section class="wrap pb-[clamp(3rem,6vw,5rem)]" aria-label="Corte da laje">
+    <CorteLaje />
+  </section>
+
+  <section class="border-t border-cimento py-[clamp(3.5rem,7vw,6rem)]" aria-labelledby="oque">
+    <div class="wrap grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-6">
+        <h2 id="oque" class="h-secao text-[clamp(2rem,1.5rem+2vw,3rem)]">O que é a laje pré-fabricada</h2>
+        <div class="prosa mt-5 text-lg">{oQue.map((p) => <p>{p}</p>)}</div>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8">
+        <h2 class="h-secao text-2xl">Comparada à laje maciça</h2>
+        <ol class="lista mt-4">
+          {
+            vantagens.map((v, i) => (
+              <li>
+                <span class="peca num">{i + 1}</span>
+                {v}
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap pb-[clamp(3.5rem,7vw,6rem)]" aria-label="Tipos de laje">
+    <ul class="tipos">
+      {
+        LAJES.map((l) => (
+          <li>
+            <a href={url('lajes', l.slug)} class="tipo folha">
+              <Image src={foto(l.fotos[0])} alt="" widths={[400, 800]} sizes="(min-width: 900px) 30vw, 100vw" loading="lazy" />
+              <span class="block p-5">
+                <span class="block text-2xl font-extrabold tracking-tight">{l.nome}</span>
+                <span class="cota mt-1 block">{l.vao}</span>
+                <span class="mt-3 block text-grafite-2">{l.resumo}</span>
+                <span class="mt-4 inline-flex items-center gap-1 font-bold text-azul">Ver detalhes <Icone nome="seta" class="size-4" /></span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <div class="border-t border-cimento"><Vendas /></div>
+</Base>
+
+<style>
+  .lista {
+    border-top: 2px solid var(--color-grafite);
+  }
+  .lista li {
+    display: flex;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--color-cimento);
+    font-weight: 600;
+  }
+  .tipos {
+    display: grid;
+    gap: 16px;
+  }
+  @media (min-width: 900px) {
+    .tipos {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .tipo {
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    transition: transform 300ms var(--ease-out);
+  }
+  .tipo :global(img) {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+  @media (hover: hover) {
+    .tipo:hover {
+      transform: translateY(-3px);
+    }
+  }
+</style>

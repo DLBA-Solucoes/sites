@@ -1,0 +1,188 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/overpass';
+
+@theme {
+  --font-sans: 'Overpass Variable', ui-sans-serif, system-ui, sans-serif;
+  --color-concreto: #e8e7e2;
+  --color-concreto-2: #dddbd4;
+  --color-cimento: #bdbab1;
+  --color-papel: #f7f6f2;
+  --color-grafite: #1f2226;
+  --color-grafite-2: #4b4f55;
+  --color-azul: #323c8d;
+  --color-azul-2: #262e70;
+  --color-laranja: #ef7f1a;
+  --color-laranja-2: #d96d0c;
+}
+
+@layer base {
+  :root {
+    --gutter: clamp(16px, 4vw, 48px);
+    --max: 1400px;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --header-h: 72px;
+    color-scheme: light;
+    scrollbar-color: var(--color-cimento) var(--color-concreto);
+  }
+  html {
+    background: var(--color-concreto);
+    color: var(--color-grafite);
+    font-family: var(--font-sans);
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  body {
+    min-height: 100dvh;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    background: var(--color-azul);
+    color: #fff;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-azul);
+    outline-offset: 3px;
+  }
+  a {
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: var(--max);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+  .h-display {
+    font-weight: 850;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+  .h-secao {
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .cota {
+    /* Rótulo de desenho técnico: pequeno, espaçado, em azul de prancha. */
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-azul);
+  }
+  .num {
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+  .lead {
+    font-size: clamp(1.0625rem, 0.98rem + 0.4vw, 1.3125rem);
+    line-height: 1.55;
+    max-width: 58ch;
+    text-wrap: pretty;
+  }
+  .prosa {
+    max-width: 66ch;
+    text-wrap: pretty;
+  }
+  .prosa p + p {
+    margin-top: 1em;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6em;
+    min-height: 52px;
+    padding: 0 1.4em;
+    font-weight: 800;
+    font-size: 1.0625rem;
+    text-decoration: none;
+    border-radius: 2px;
+    cursor: pointer;
+    transition:
+      background-color 160ms var(--ease-out),
+      color 160ms var(--ease-out),
+      transform 120ms var(--ease-out),
+      box-shadow 160ms var(--ease-out);
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-laranja {
+    background: var(--color-laranja);
+    color: var(--color-grafite);
+  }
+  .btn-laranja:hover {
+    background: var(--color-laranja-2);
+  }
+  .btn-azul {
+    background: var(--color-azul);
+    color: #fff;
+  }
+  .btn-azul:hover {
+    background: var(--color-azul-2);
+  }
+  .btn-linha {
+    background: transparent;
+    color: var(--color-grafite);
+    box-shadow: inset 0 0 0 1.5px currentColor;
+  }
+  .btn-linha:hover {
+    background: rgb(31 34 38 / 0.06);
+  }
+  .btn svg {
+    width: 1.15em;
+    height: 1.15em;
+    flex: none;
+  }
+  /* Folha do esquema de montagem: papel com margem e régua. */
+  .folha {
+    background: var(--color-papel);
+    box-shadow:
+      0 1px 0 rgb(31 34 38 / 0.06),
+      0 18px 40px -18px rgb(31 34 38 / 0.25);
+  }
+  /* Marcador numerado de peça, como no desenho técnico. */
+  .peca {
+    display: inline-grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1.5px solid var(--color-azul);
+    color: var(--color-azul);
+    font-size: 0.8125rem;
+    font-weight: 800;
+    flex: none;
+    background: var(--color-papel);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .entra {
+    animation: entra 800ms var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 90ms + 60ms);
+  }
+}
+@keyframes entra {
+  from {
+    opacity: 0.001;
+    transform: translateY(16px);
+  }
+}

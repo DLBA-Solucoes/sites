@@ -1,0 +1,134 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Vendas from '../components/Vendas.astro';
+import { foto } from '../lib/site';
+import { EMPRESA, FABRICA, HISTORIA, MISSAO } from '../data/conteudo';
+---
+
+<Base titulo="Empresa" descricao="Arte Laje: pioneira em laje pré-fabricada no Vale do Itapocu desde 1977, no PBQP-H desde 2004." ativo="empresa" og="fabrica-03">
+  <header class="wrap grid gap-8 pt-[clamp(2.5rem,6vw,5rem)] pb-12 lg:grid-cols-12 lg:items-end">
+    <h1 class="h-display entra text-[clamp(3rem,1.8rem+5vw,5.5rem)] lg:col-span-7">Pioneira em laje pré-fabricada no Vale do Itapocu</h1>
+    <div class="prosa entra text-lg text-grafite-2 lg:col-span-5" style="--i:1">
+      <p>Desde 1977 a Arte Laje fabrica lajes pré-fabricadas em Jaraguá do Sul, investindo em qualidade e atendimento.</p>
+      <p>Atende {EMPRESA.regiao.toLowerCase()}. Segundo a empresa, já são mais de 5 milhões de metros quadrados de lajes produzidas.</p>
+    </div>
+  </header>
+
+  <section class="wrap pb-[clamp(3.5rem,7vw,6rem)]" aria-labelledby="historia">
+    <h2 id="historia" class="h-secao text-[clamp(2rem,1.5rem+2vw,3rem)]">Nossa história</h2>
+    <ol class="linha num mt-8">
+      {
+        HISTORIA.map((h) => (
+          <li>
+            <span class="ano">{h.ano}</span>
+            <p class="text-grafite-2">{h.texto}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="bg-azul py-[clamp(3.5rem,7vw,6rem)] text-papel" aria-labelledby="missao">
+    <div class="wrap grid gap-6 lg:grid-cols-12">
+      <h2 id="missao" class="h-secao text-3xl lg:col-span-3">Missão</h2>
+      <p class="text-[clamp(1.4rem,1.1rem+1.2vw,2.1rem)] leading-snug font-bold tracking-tight lg:col-span-9">{MISSAO}</p>
+    </div>
+  </section>
+
+  <section class="bg-grafite py-[clamp(4rem,8vw,7rem)] text-papel" aria-labelledby="fabrica">
+    <div class="wrap">
+      <h2 id="fabrica" class="h-display text-[clamp(2.5rem,1.6rem+3.6vw,4.5rem)]">O parque fabril, etapa por etapa</h2>
+      <p class="lead mt-5 text-cimento">Investimento contínuo em equipamentos, sistemas produtivos e no aperfeiçoamento da equipe.</p>
+      <ol class="etapas mt-12">
+        {
+          FABRICA.map((e, i) => (
+            <li>
+              <figure>
+                <Image src={foto(e.foto)} alt={e.legenda} widths={[300, 565]} sizes="(min-width: 1024px) 23vw, (min-width: 640px) 45vw, 100vw" loading="lazy" />
+                <figcaption>
+                  <span class="num text-laranja">{String(i + 1).padStart(2, '0')}</span>
+                  {e.legenda}
+                </figcaption>
+              </figure>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <Vendas />
+</Base>
+
+<style>
+  .linha {
+    border-left: 3px solid var(--color-azul);
+    margin-left: 0.5rem;
+  }
+  .linha li {
+    position: relative;
+    display: grid;
+    gap: 0.25rem 2rem;
+    padding: 0 0 2rem 1.75rem;
+    max-width: 62rem;
+  }
+  .linha li::before {
+    content: '';
+    position: absolute;
+    left: -9px;
+    top: 0.55rem;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: var(--color-concreto);
+    border: 3px solid var(--color-azul);
+  }
+  .ano {
+    font-size: 2rem;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+    color: var(--color-azul);
+    line-height: 1.2;
+  }
+  @media (min-width: 768px) {
+    .linha li {
+      grid-template-columns: 7rem 1fr;
+      align-items: baseline;
+    }
+  }
+  .etapas {
+    display: grid;
+    gap: 2rem 1rem;
+  }
+  @media (min-width: 640px) {
+    .etapas {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .etapas {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .etapas figure {
+    margin: 0;
+  }
+  .etapas :global(img) {
+    width: 100%;
+    aspect-ratio: 565 / 334;
+    object-fit: cover;
+  }
+  .etapas figcaption {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgb(255 255 255 / 0.15);
+    font-weight: 600;
+    font-size: 0.9688rem;
+  }
+  .etapas figcaption span {
+    font-weight: 800;
+  }
+</style>

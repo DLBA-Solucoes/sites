@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Vendas from '../components/Vendas.astro';
+import { foto } from '../lib/site';
+import { FROTA, OBRAS } from '../data/conteudo';
+---
+
+<Base titulo="Obras" descricao="Obras na região de Jaraguá do Sul mostradas pela Arte Laje." ativo="obras">
+  <header class="wrap pt-[clamp(2.5rem,6vw,5rem)] pb-10">
+    <h1 class="h-display entra text-[clamp(3rem,1.8rem+5vw,5.5rem)]">Obras na região</h1>
+    <p class="lead entra mt-5 text-grafite-2" style="--i:1">Edifícios residenciais, comércio e serviços no Vale do Itapocu.</p>
+  </header>
+  <section class="wrap pb-[clamp(4rem,8vw,7rem)]" aria-label="Fotos de obras">
+    <ul class="mosaico">
+      {
+        [...OBRAS, ...FROTA].map((o) => (
+          <li>
+            <Image src={foto(o)} alt={FROTA.includes(o) ? 'Frota da Arte Laje com guindaste' : 'Obra na região de Jaraguá do Sul'} widths={[300, 460]} sizes="(min-width: 1024px) 23vw, (min-width: 640px) 31vw, 50vw" loading="lazy" />
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+  <div class="border-t border-cimento"><Vendas /></div>
+</Base>
+
+<style>
+  .mosaico {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  @media (min-width: 640px) {
+    .mosaico {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (min-width: 1024px) {
+    .mosaico {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .mosaico :global(img) {
+    width: 100%;
+    aspect-ratio: 453 / 359;
+    object-fit: cover;
+  }
+</style>

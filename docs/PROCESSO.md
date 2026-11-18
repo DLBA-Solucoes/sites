@@ -21,6 +21,7 @@ Tudo vai para `sites/<cliente>/_original/` (as imagens brutas ficam fora do git 
 - Fotos: procure a **maior versão** de cada uma. No WordPress, liste a biblioteca de mídia
   (`/wp-json/wp/v2/media?per_page=100&page=N`); foi lá que apareceram as fotos de campo boas da SC,
   que nem estavam nas páginas.
+- Site estático (HTML/PHP): `node tools/coletar-estatico.mjs <url> sites/<cliente>/_original` baixa textos e imagens.
 - Escreva um `scripts/importar-conteudo.mjs` no site do cliente (modelo: o da SC) que gera
   `src/data/*.json` e as imagens otimizadas em `src/assets/`. Rodar de novo deve dar o mesmo resultado.
 

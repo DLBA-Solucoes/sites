@@ -1,0 +1,233 @@
+---
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import Icone from '../components/Icone.astro';
+import { NAV, PREFIXO, foto, url } from '../lib/site';
+import { EMPRESA } from '../data/conteudo';
+import logo from '../assets/fotos/logo.png';
+
+interface Props {
+  titulo: string;
+  descricao: string;
+  ativo?: string;
+  og?: string;
+}
+const { titulo, descricao, ativo, og } = Astro.props;
+const site = Astro.site!;
+const canonica = new URL(Astro.url.pathname, site).href;
+const imgOg = await getImage({ src: foto(og ?? 'obra-a1'), width: 1200, height: 630, fit: 'cover', format: 'jpeg' });
+const tituloCompleto = titulo.includes('Arte Laje') ? titulo : `${titulo} | Arte Laje`;
+const assunto = encodeURIComponent('Orçamento de laje');
+const emailProjeto = `mailto:${EMPRESA.email}?subject=${assunto}`;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloCompleto}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonica} />
+    {import.meta.env.PUBLIC_NOINDEX === '1' && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Arte Laje" />
+    <meta property="og:title" content={tituloCompleto} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:image" content={new URL(imgOg.src, site).href} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="theme-color" content="#e8e7e2" />
+    <link rel="icon" href={`${PREFIXO}/favicon.png`} type="image/png" />
+  </head>
+  <body class="flex min-h-dvh flex-col">
+    <a href="#conteudo" class="sr-only z-50 bg-azul px-4 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:top-2 focus:left-2">
+      Pular para o conteúdo
+    </a>
+
+    <header class="cab sticky top-0 z-40">
+      <div class="wrap flex h-[var(--header-h)] items-center gap-6">
+        <a href={url()} class="shrink-0" aria-label="Arte Laje, página inicial">
+          <img src={logo.src} width="280" height="152" alt="" class="h-12 w-auto" />
+        </a>
+        <nav class="ml-auto hidden lg:block" aria-label="Principal">
+          <ul class="flex items-center gap-1">
+            {
+              NAV.map((i) => (
+                <li>
+                  <a href={i.href} class="nav-link" aria-current={ativo === i.id ? 'page' : undefined}>
+                    {i.rotulo}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <a href={`tel:${EMPRESA.telefone.link}`} class="num ml-auto hidden items-center gap-2 font-bold whitespace-nowrap no-underline sm:flex lg:ml-2">
+          <Icone nome="telefone" class="size-4 text-azul" />
+          {EMPRESA.telefone.numero}
+        </a>
+        <a href={url('contato')} class="btn btn-laranja hidden md:inline-flex">Enviar projeto</a>
+        <button type="button" class="menu-btn ml-auto grid sm:ml-0 lg:hidden" aria-expanded="false" aria-controls="menu-movel" data-menu>
+          <Icone nome="menu" class="size-6" />
+          <span class="sr-only">Menu</span>
+        </button>
+      </div>
+      <div id="menu-movel" class="menu-movel lg:hidden" hidden>
+        <nav class="wrap pt-2 pb-10" aria-label="Menu">
+          <ul>
+            <li><a href={url()} class="item-movel">Início</a></li>
+            {
+              NAV.map((i) => (
+                <li>
+                  <a href={i.href} class="item-movel" aria-current={ativo === i.id ? 'page' : undefined}>
+                    {i.rotulo}
+                    <Icone nome="seta" class="size-5 text-grafite-2" />
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <a href={url('contato')} class="btn btn-laranja mt-8 w-full">Enviar projeto</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="conteudo" class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="rodape bg-grafite pb-24 text-concreto sm:pb-0">
+      <div class="wrap grid gap-10 py-16 md:grid-cols-12">
+        <div class="md:col-span-5">
+          <p class="h-secao text-[clamp(1.75rem,1.2rem+2vw,2.75rem)] text-papel">{EMPRESA.slogan}.</p>
+          <p class="mt-4 max-w-[40ch] text-cimento">Lajes pré-fabricadas, treliçadas e mini painel fabricadas em Jaraguá do Sul desde 1977.</p>
+        </div>
+        <nav class="md:col-span-3" aria-label="Rodapé">
+          <ul class="space-y-2">
+            {NAV.map((i) => <li><a href={i.href} class="no-underline hover:underline">{i.rotulo}</a></li>)}
+          </ul>
+        </nav>
+        <div class="num md:col-span-4">
+          <a href={`tel:${EMPRESA.telefone.link}`} class="block text-xl font-bold text-papel no-underline">{EMPRESA.telefone.numero}</a>
+          <a href={emailProjeto} class="mt-1 block">{EMPRESA.email}</a>
+          <p class="mt-3 text-cimento">{EMPRESA.endereco}</p>
+        </div>
+      </div>
+      <div class="wrap border-t border-white/10 py-6 text-sm text-cimento">© {new Date().getFullYear()} Arte Laje. Todos os direitos reservados.</div>
+    </footer>
+
+    <div class="barra fixed inset-x-0 bottom-0 z-30 grid grid-cols-2 sm:hidden">
+      <a href={`tel:${EMPRESA.telefone.link}`} class="barra-item bg-grafite text-papel"><Icone nome="telefone" class="size-5" />Ligar</a>
+      <a href={url('contato')} class="barra-item bg-laranja text-grafite"><Icone nome="email" class="size-5" />Enviar projeto</a>
+    </div>
+  </body>
+</html>
+
+<style>
+  .cab {
+    background: color-mix(in srgb, var(--color-concreto) 94%, transparent);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--color-cimento);
+  }
+  .nav-link {
+    display: block;
+    padding: 0.5rem 0.8rem;
+    font-weight: 700;
+    font-size: 0.9688rem;
+    text-decoration: none;
+    color: var(--color-grafite-2);
+    position: relative;
+    transition: color 150ms var(--ease-out);
+  }
+  .nav-link:hover,
+  .nav-link[aria-current='page'] {
+    color: var(--color-grafite);
+  }
+  .nav-link[aria-current='page']::after {
+    content: '';
+    position: absolute;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: -0.75rem;
+    height: 3px;
+    background: var(--color-laranja);
+  }
+  .menu-btn {
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    margin-right: -8px;
+  }
+  .menu-movel {
+    height: calc(100dvh - var(--header-h));
+    overflow-y: auto;
+    border-top: 1px solid var(--color-cimento);
+    background: var(--color-concreto);
+  }
+  .item-movel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-cimento);
+    font-weight: 800;
+    font-size: 1.75rem;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+  .item-movel[aria-current='page'] {
+    color: var(--color-azul);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .menu-movel:not([hidden]) {
+      animation: abre 360ms var(--ease-out);
+    }
+  }
+  @keyframes abre {
+    from {
+      opacity: 0;
+      clip-path: inset(0 0 100% 0);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  .barra {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .barra-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 56px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('[data-menu]');
+  const menu = document.getElementById('menu-movel');
+  if (btn && menu) {
+    const fechar = () => {
+      menu.hidden = true;
+      btn.setAttribute('aria-expanded', 'false');
+      document.documentElement.style.overflow = '';
+    };
+    btn.addEventListener('click', () => {
+      const abrir = menu.hidden;
+      menu.hidden = !abrir;
+      btn.setAttribute('aria-expanded', String(abrir));
+      document.documentElement.style.overflow = abrir ? 'hidden' : '';
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) {
+        fechar();
+        btn.focus();
+      }
+    });
+    matchMedia('(min-width: 1024px)').addEventListener('change', (e) => e.matches && fechar());
+  }
+</script>

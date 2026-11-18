@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/site';
+---
+
+<Base titulo="Página não encontrada" descricao="Este endereço não existe.">
+  <section class="wrap py-[clamp(4rem,10vw,8rem)]">
+    <h1 class="h-display text-[clamp(3rem,2rem+5vw,5.5rem)]">Página não encontrada</h1>
+    <p class="lead mt-5 text-grafite-2">O endereço mudou ou não existe.</p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href={url()} class="btn btn-laranja">Ir para o início</a>
+      <a href={url('lajes')} class="btn btn-linha">Ver as lajes</a>
+    </div>
+  </section>
+</Base>

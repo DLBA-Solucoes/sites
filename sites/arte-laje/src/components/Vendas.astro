@@ -1,0 +1,69 @@
+---
+// Bloco de contato: enviar o projeto + equipe de vendas com telefone e e-mail de cada um.
+import Icone from './Icone.astro';
+import { EMPRESA, REPRESENTANTES, telLink } from '../data/conteudo';
+
+interface Props {
+  nivel?: 'h1' | 'h2';
+}
+const { nivel = 'h2' } = Astro.props;
+const H = nivel;
+const assunto = encodeURIComponent('Orçamento de laje');
+---
+
+<section class="vendas py-[clamp(4rem,8vw,7rem)]" aria-labelledby="vendas-titulo">
+  <div class="wrap grid gap-12 lg:grid-cols-12">
+    <div class="lg:col-span-5">
+      <H id="vendas-titulo" class="h-display text-[clamp(2.5rem,1.6rem+3.6vw,4.5rem)]">Mande o projeto da sua obra</H>
+      <p class="lead mt-5 text-grafite-2">
+        A equipe de vendas analisa o projeto e indica a melhor opção de custo e benefício. Mande o arquivo por e-mail ou ligue para a fábrica.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={`mailto:${EMPRESA.email}?subject=${assunto}`} class="btn btn-laranja"><Icone nome="email" />Enviar projeto por e-mail</a>
+        <a href={`tel:${EMPRESA.telefone.link}`} class="btn btn-linha num"><Icone nome="telefone" />{EMPRESA.telefone.numero}</a>
+      </div>
+      <p class="mt-6 text-sm text-grafite-2">
+        Financiamento direto com a Arte Laje, ou pelas linhas de crédito do governo e dos bancos. Consulte.
+      </p>
+    </div>
+    <ul class="equipe lg:col-span-6 lg:col-start-7">
+      {
+        REPRESENTANTES.map((r) => (
+          <li class="folha">
+            <p class="text-xl font-extrabold tracking-tight">{r.nome}</p>
+            <p class="cota mt-0.5">Representante</p>
+            <ul class="num mt-3 flex flex-wrap gap-x-5 gap-y-1">
+              {r.telefones.map((t) => (
+                <li>
+                  <a href={`tel:${telLink(t)}`} class="inline-flex min-h-11 items-center gap-1.5 font-bold no-underline hover:underline">
+                    <Icone nome="telefone" class="size-4 text-azul" />
+                    {t}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href={`mailto:${r.email}?subject=${assunto}`} class="break-all text-grafite-2">
+              {r.email}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .equipe {
+    display: grid;
+    gap: 12px;
+  }
+  .equipe > li {
+    padding: 1.1rem 1.25rem;
+    border-left: 3px solid var(--color-azul);
+  }
+  @media (min-width: 640px) {
+    .equipe {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

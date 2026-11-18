@@ -4,8 +4,30 @@
     {
       "name": "sc-maquinas",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "preview", "-w", "sc-maquinas", "--", "--port", "4321"],
+      "runtimeArgs": [
+        "run",
+        "preview",
+        "-w",
+        "sc-maquinas",
+        "--",
+        "--port",
+        "4321"
+      ],
       "port": 4321
+    },
+    {
+      "name": "arte-laje",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "preview",
+        "-w",
+        "arte-laje",
+        "--",
+        "--port",
+        "4322"
+      ],
+      "port": 4322
     }
   ]
 }
