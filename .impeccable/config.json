@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "sites/arte-laje/src/pages/empresa.astro"
+        ],
+        "createdAt": "2026-11-18T22:17:48.339Z",
+        "reason": "Claude: border is the spine of the 1977-2011 history timeline (with dot markers), not a card accent"
+      }
+    ]
+  }
+}
